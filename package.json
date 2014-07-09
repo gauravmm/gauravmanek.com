@@ -1,0 +1,22 @@
+{
+  "name": "gauravmanek.com_template",
+  "version": "0.0.1",
+  "description": "Template for GauravManek.com, built on Bootstrap + Initalizr",
+  "main": "gulp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gauravmm/gauravmanek.com_template.git"
+  },
+  "author": "Gaurav Manek",
+  "license": "None",
+  "bugs": {
+    "url": "https://github.com/gauravmm/gauravmanek.com_template/issues"
+  },
+  "homepage": "https://github.com/gauravmm/gauravmanek.com_template",
+  "devDependencies": {
+    "gulp": "^3.8.5"
+  }
+}
