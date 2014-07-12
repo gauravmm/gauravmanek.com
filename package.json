@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gauravmm/gauravmanek.com_template",
   "devDependencies": {
-    "gulp": "^3.8.5"
+    "gulp": "^3.8.5",
+    "less": "^1.7.3"
   }
 }
