@@ -7,12 +7,13 @@
 
 // Basics of a navbar
 @navbar-height:                    50px;
+@navbar-logo-size:								 40px;
 @navbar-margin-bottom:             @line-height-computed;
-@navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
 
 @navbar-theme-bg:                #333;
+@navbar-theme-logo-color:				 #FFF;
 @navbar-theme-border:            darken(@navbar-theme-bg, 6.5%);
 @navbar-theme-link:              #777;
 @navbar-theme-hover-link:        #BBB;
@@ -53,6 +54,7 @@
   overflow-x: visible;
   padding: 0 @navbar-padding-horizontal;
 	margin: 0;
+	float: right;
   &:extend(.clearfix all);
   -webkit-overflow-scrolling: touch;
 	
@@ -89,14 +91,38 @@
 .navbar-brand {
   float: left;
   height: @navbar-height;
-	// padding: @navbar-padding-vertical @navbar-padding-horizontal;
-  
+	color: @navbar-theme-logo-color;
+	
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		color: @navbar-theme-logo-color;
+	}
+	
   @media (min-width: @grid-float-breakpoint) {
     .navbar > .container &,
     .navbar > .container-fluid & {
       margin-left: -@navbar-padding-horizontal;
     }
   }
+	
+	> span {
+		line-height: @navbar-logo-size;
+		.navbar-vertical-align(@navbar-logo-size);	
+	}
+
+	.navbar-logo {
+		.svg-image("../img/logo-transparent.svg", @navbar-logo-size, @navbar-logo-size);
+	}
+
+	.navbar-logo+.navbar-logo-text {
+		margin-left: @navbar-padding-horizontal;
+	}
+
+	.navbar-logo-text {
+		display: inline-block;
+		font-size: 120%;
+	}
 }
 
 // Toggle the visibility of navbar-links

@@ -24,25 +24,17 @@
   height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
 }
 
-// Text emphasis
-.text-emphasis-variant(@color) {
-  color: @color;
-  a&:hover {
-    color: darken(@color, 10%);
-  }
-}
-
-// Contextual backgrounds
-.bg-variant(@color) {
-  background-color: @color;
-  a&:hover {
-    background-color: darken(@color, 10%);
-  }
+// SVG Image
+.svg-image(@img; @wd; @ht) {
+ 	display: inline-block;
+  width: @wd;
+  height: @ht;
+  background: url(@img) no-repeat;
+  background-size: @wd @ht;
 }
 
 // Text overflow
 // Requires inline-block or block for proper styling
-
 .text-overflow() {
   overflow: hidden;
   text-overflow: ellipsis;
