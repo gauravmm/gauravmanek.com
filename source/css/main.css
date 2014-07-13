@@ -1334,15 +1334,6 @@ body {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 768px) {
-  .container > .navbar-brand,
-  .container-fluid > .navbar-brand,
-  .container > .navbar-links,
-  .container-fluid > .navbar-links {
-    margin-right: 0;
-    margin-left: 0;
-  }
-}
 .navbar-links {
   overflow-x: visible;
   padding: 0 15px;
