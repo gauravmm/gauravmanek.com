@@ -13,7 +13,7 @@ def bkggen(name):
 	img_cell_sz = 5
 	img_gutter_sz = 1
 
-	colors = [rgb(col, col, col) for col in [227, 236, 240, 248]] + [None]
+	colors = [rgb(col, col, col) for col in [246, 248, 250, 252, 255]]
 
 	dwg = svgwrite.Drawing(name, (img_draw_sz, img_draw_sz), debug=True)
 	# Define a user coordinate system:
@@ -30,4 +30,4 @@ def bkggen(name):
 	## end of http://code.activestate.com/recipes/577111/ }}}
 
 if __name__ == '__main__':
-	bkggen("bkg.svg")
+	bkggen("../source/img/bkg.svg")

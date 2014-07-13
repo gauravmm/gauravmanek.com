@@ -475,22 +475,6 @@ mark,
 .text-capitalize {
   text-transform: capitalize;
 }
-.text-muted {
-  color: #777777;
-}
-.text-primary {
-  color: #428bca;
-}
-a.text-primary:hover {
-  color: #3071a9;
-}
-.bg-primary {
-  color: #fff;
-  background-color: #428bca;
-}
-a.bg-primary:hover {
-  background-color: #3071a9;
-}
 .page-header {
   padding-bottom: 9px;
   margin: 40px 0 20px;
@@ -1326,6 +1310,14 @@ pre code {
     margin-left: 0%;
   }
 }
+body {
+  background: #f2f2f2 url(../img/bkg.svg) repeat;
+}
+.main-content {
+  overflow: auto;
+  background: #ffffff;
+  border: thin solid #000;
+}
 .navbar {
   position: relative;
   min-height: 50px;
@@ -1360,20 +1352,22 @@ pre code {
 .navbar-links > li {
   list-style-type: none;
   display: inline-block;
+}
+.navbar-links > li > a {
+  display: block;
   height: 50px;
   padding: 15px 15px;
+  color: #777777;
 }
-.navbar-links > li:hover,
-.navbar-links > li:focus {
+.navbar-links > li > a:hover,
+.navbar-links > li > a:focus {
   border-bottom: medium solid #777777;
-}
-.navbar-links > li:hover > a,
-.navbar-links > li:focus > a {
   color: #bbbbbb;
   text-decoration: none;
 }
-.navbar-links > li > a {
-  color: #777777;
+.navbar-links .navbar-current {
+  color: #bbbbbb;
+  border-bottom: medium solid #777777;
 }
 @media (min-width: 768px) {
   .navbar-links {
