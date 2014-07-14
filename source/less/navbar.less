@@ -6,15 +6,15 @@
 //
 
 // Basics of a navbar
-@navbar-height:                    50px;
-@navbar-logo-size:								 40px;
-@navbar-margin-bottom:             @line-height-computed;
-@navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
-@navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
+@navbar-height:                  50px;
+@navbar-logo-size:							 40px;
+@navbar-margin-bottom:           0; // @line-height-computed;
+@navbar-padding-horizontal:      floor((@grid-gutter-width / 2));
+@navbar-padding-vertical:        ((@navbar-height - @line-height-computed) / 2);
 
 @navbar-theme-bg:                @theme-primary-dark;
 @navbar-theme-logo-color:				 @theme-neutral;
-@navbar-theme-border:            darken(@navbar-theme-bg, 6.5%);
+@navbar-theme-border:            darken(@navbar-theme-bg, @theme-border-darker-percentage);
 @navbar-theme-link:              @theme-secondary-light;
 
 // Hover
@@ -23,8 +23,8 @@
 
 // Current
 @navbar-theme-current-link:      @theme-neutral;
-@navbar-theme-current-bg:      	 @theme-primary-light;
-@navbar-theme-current-line:      darken(@navbar-theme-current-bg, 6.5%);
+@navbar-theme-current-bg:      	 @theme-primary-lessdark;
+@navbar-theme-current-line:      darken(@navbar-theme-bg, @theme-border-darker-percentage); //darken(@navbar-theme-current-bg, 6.5%);
 
 
 // Wrapper
@@ -32,12 +32,12 @@
 .navbar {
   position: relative;
   min-height: @navbar-height;
-  margin-bottom: @navbar-margin-bottom;
+	margin-bottom: @navbar-margin-bottom;
   z-index: @zindex-navbar;
 	
 	// Color and styling
 	background-color: @navbar-theme-bg;
-	border-bottom: medium solid @navbar-theme-border;
+	border-bottom: thin solid @navbar-theme-border;
 	color: @navbar-theme-link;
     
   // Prevent floats from breaking the navbar
@@ -81,10 +81,18 @@
 		}
 	}
 	
-	.navbar-current {
+	.navbar-current a {
 		color: @navbar-theme-current-link;
-		border-bottom: medium solid @navbar-theme-current-line;
-		background-color: @navbar-theme-current-bg;
+		border-left: thin solid @navbar-theme-current-line;
+		border-right: thin solid @navbar-theme-current-line;
+		background: @navbar-theme-current-bg;
+		
+		&:hover,
+		&:focus {
+			color: @navbar-theme-current-link;
+			border-bottom: none;
+			text-decoration: none;
+		}
 	}
 
   @media (min-width: @grid-float-breakpoint) {
@@ -127,7 +135,6 @@
 
 	.navbar-logo-text {
 		display: inline-block;
-		font-size: 120%;
 	}
 }
 

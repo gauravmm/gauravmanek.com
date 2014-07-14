@@ -1,13 +1,47 @@
 // Page background:
 body {
-	background: #F2F2F2 url(../img/bkg.svg) repeat;
+	background: @theme-primary-light url(../img/bkg.svg) repeat;
 }
 
 .main-content {
 	// Force to grow to fit content
 	overflow: auto;
 	
+	// Give more space to the top
+	padding-top: @font-size-h1;
+	
 	// Colors and themes:
 	background: @theme-background;
-	border: thin solid #000;
+	border-left: thin solid @theme-border;
+	border-right: thin solid @theme-border;
+}
+
+
+.page-title {
+	// Force to grow to fit content
+	overflow: auto;
+	
+	// Colors and themes:
+	background: @theme-primary-lessdark;
+	border-bottom: thin solid @theme-primary-dark;
+	
+	h1 {
+		color: @theme-neutral;
+	}
+	
+	h2 {
+		color: @theme-primary-light;
+		font-size: @font-size-h3;
+	}
+	
+	@media (min-width: @grid-float-breakpoint) {
+      h1 {
+				margin-top: @font-size-h1;
+			}
+			h2 {
+				margin-top: @font-size-h3;
+			}
+		
+			padding-bottom: @font-size-h3;
+  }
 }

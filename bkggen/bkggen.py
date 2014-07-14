@@ -39,8 +39,8 @@ def bkggen_triangle(name):
 	img_cell_sz = 5
 	img_gutter_sz = 1
 
-	colors = [rgb(col, col, col) for col in [246, 248, 250, 252, 255]]
-	#colors = [rgb(0, 0, 0)]
+	colors = [0.05, 0.10, 0.15, 0.2]
+	base_color = rgb(255, 255, 255)
 
 	dwg = svgwrite.Drawing(name, (img_draw_wd, img_draw_ht), debug=True)
 	# Define a user coordinate system:
@@ -72,9 +72,9 @@ def bkggen_triangle(name):
 
 			if _fill is not None:
 				if (_Cx + _Cy) % 2 == 0:
-					dwg.add(dwg.polygon(points=[(_x, _y), (_x + img_cell_sz, _y + img_cell_sz/2), (_x, _y + img_cell_sz)], fill=_fill))
+					dwg.add(dwg.polygon(points=[(_x, _y), (_x + img_cell_sz, _y + img_cell_sz/2), (_x, _y + img_cell_sz)], fill=base_color, fill_opacity=_fill))
 				else:
-					dwg.add(dwg.polygon(points=[(_x + img_cell_sz, _y), (_x, _y + img_cell_sz/2), (_x + img_cell_sz, _y + img_cell_sz)], fill=_fill))
+					dwg.add(dwg.polygon(points=[(_x + img_cell_sz, _y), (_x, _y + img_cell_sz/2), (_x + img_cell_sz, _y + img_cell_sz)], fill=base_color, fill_opacity=_fill))
 
 	dwg.save()
 
