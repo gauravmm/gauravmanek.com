@@ -13,20 +13,21 @@
 @gray-light:             lighten(#000, 46.7%); // #777
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
+@theme-neutral:					#EEE;
 @theme-background: 			#FFF;
-@theme-primary:         #428bca;
+@theme-primary-dark:    #542437;
+@theme-primary-light:   lighten(#542437, 10%);
+@theme-secondary-light: @theme-neutral;
+@theme-secondary-dark:	#99B2B7;
+
+	
 
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
 
-//** Background color for `<body>`.
-@body-bg:               #fff;
-//** Global text color on `<body>`.
-@text-color:            @gray-dark;
-
 //** Global textual link color.
-@link-color:            @theme-primary;
+@link-color:            @theme-primary-dark;
 //** Link hover color set via `darken()` function.
 @link-hover-color:      darken(@link-color, 15%);
 
@@ -61,7 +62,7 @@
 @headings-font-family:    inherit;
 @headings-font-weight:    500;
 @headings-line-height:    1.1;
-@headings-color:          inherit;
+@headings-color:          @theme-primary-dark;
 
 
 //== Components

@@ -12,14 +12,19 @@
 @navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
 
-@navbar-theme-bg:                #333;
-@navbar-theme-logo-color:				 #FFF;
+@navbar-theme-bg:                @theme-primary-dark;
+@navbar-theme-logo-color:				 @theme-neutral;
 @navbar-theme-border:            darken(@navbar-theme-bg, 6.5%);
-@navbar-theme-link:              #777;
-@navbar-theme-hover-link:        #BBB;
-@navbar-theme-hover-line:        #777;
-@navbar-theme-current-link:      #BBB;
-@navbar-theme-current-line:      #777;
+@navbar-theme-link:              @theme-secondary-light;
+
+// Hover
+@navbar-theme-hover-link:        @theme-secondary-dark;
+@navbar-theme-hover-line:        @theme-secondary-dark;
+
+// Current
+@navbar-theme-current-link:      @theme-neutral;
+@navbar-theme-current-bg:      	 @theme-primary-light;
+@navbar-theme-current-line:      darken(@navbar-theme-current-bg, 6.5%);
 
 
 // Wrapper
@@ -79,6 +84,7 @@
 	.navbar-current {
 		color: @navbar-theme-current-link;
 		border-bottom: medium solid @navbar-theme-current-line;
+		background-color: @navbar-theme-current-bg;
 	}
 
   @media (min-width: @grid-float-breakpoint) {
