@@ -34,6 +34,7 @@
   min-height: @navbar-height;
 	margin-bottom: @navbar-margin-bottom;
   z-index: @zindex-navbar;
+	padding-left: @navbar-padding-horizontal;
 	
 	// Color and styling
 	background-color: @navbar-theme-bg;
@@ -42,18 +43,6 @@
     
   // Prevent floats from breaking the navbar
   &:extend(.clearfix all);
-}
-
-// Remove padding when contained in a .container:
-@media (min-width: @grid-float-breakpoint) {
-	.container,
-	.container-fluid {
-		> .navbar-brand,
-		> .navbar-links {
-			margin-right: -@navbar-padding-horizontal;
-			margin-left:  -@navbar-padding-horizontal;
-		}
-	}
 }
 
 // Navbar links area
@@ -97,9 +86,11 @@
 		}
 	}
 
+	display: none;
   @media (min-width: @grid-float-breakpoint) {
     width: auto;
     box-shadow: none;
+		display: inherit;
   }
 }
 
@@ -143,16 +134,26 @@
 
 // Toggle the visibility of navbar-links
 .navbar-toggle {
-  position: relative;
+	display: block;
+	@toggle-size: 36px;
+	@toggle-padding: 4px;
+	width: @toggle-size;
+	height: @toggle-size;
+	font-size: @toggle-size - @toggle-padding * 2;
+	text-align: center;
+	
+	position: relative;
   float: right;
   margin-right: @navbar-padding-horizontal;
-  padding: 9px 10px;
-  .navbar-vertical-align(34px);
-  background-color: transparent;
-  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-  border: 1px solid transparent;
-  border-radius: @border-radius-base;
-
+  .navbar-vertical-align(@toggle-size);	
+	
+	color: @navbar-theme-link;
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		color: @navbar-theme-hover-link;
+	}
+  
   @media (min-width: @grid-float-breakpoint) {
     display: none;
   }
