@@ -7,8 +7,9 @@ body {
 	// Force to grow to fit content
 	overflow: auto;
 	
-	// Give more space to the top
+	// Give more space to the top and bottom
 	padding-top: @font-size-h1;
+	padding-bottom: @font-size-h1;
 	
 	// Colors and themes:
 	background: @theme-background;
@@ -43,5 +44,12 @@ body {
 			}
 		
 			padding-bottom: @font-size-h3;
+  }
+}
+
+.nav-bar {
+	display: none;
+  @media (min-width: @screen-md-min) {
+    display: block !important;
   }
 }

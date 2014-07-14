@@ -1,0 +1,92 @@
+//
+// Footer
+// --------------------------------------------------
+
+// Basics
+@footer-min-height:              200px;
+@footer-logo-size:							 0.8 * @footer-min-height;
+@footer-padding-top:        		 @line-height-computed;
+
+@footer-theme-bg:                @theme-primary-dark;
+@footer-theme-border:            darken(@navbar-theme-bg, @theme-border-darker-percentage);
+@footer-theme-link:              @theme-secondary-light;
+
+// Hover
+@footer-theme-hover-link:        @theme-secondary-dark;
+@footer-theme-hover-line:        @theme-secondary-dark;
+
+// Current
+@footer-theme-current-link:      @theme-neutral;
+@footer-theme-current-bg:      	 @theme-primary-lessdark;
+@footer-theme-current-line:      darken(@navbar-theme-bg, @theme-border-darker-percentage);
+
+
+// Wrapper
+//
+.page-footer {
+  position: relative;
+	overflow: auto;
+  min-height: @footer-min-height;
+	z-index: @zindex-footer;
+	
+	// Color and styling
+	background-color: @footer-theme-bg;
+	border-top: thin solid @footer-theme-border;
+	color: @footer-theme-link;
+    
+  // Prevent floats from breaking the navbar
+  &:extend(.clearfix all);
+	
+	h1, h2, h3, h4, h5, h6 {
+		color: @footer-theme-link;
+	}
+}
+
+// Remove padding when contained in a .container:
+.container,
+.container-fluid {
+  > .navbar-brand,
+  > .navbar-links {
+    margin-right: -@navbar-padding-horizontal;
+    margin-left:  -@navbar-padding-horizontal;
+  }
+}
+
+// Navbar links area
+.page-footer-links {
+  overflow-x: visible;
+  &:extend(.clearfix all);
+  -webkit-overflow-scrolling: touch;
+	
+	> li {
+		list-style-type: none;
+	}
+	
+	> li > a {
+		color: @navbar-theme-link;
+		&:hover,
+		&:focus {
+			color: @navbar-theme-hover-link;
+			text-decoration: none;
+		}
+	}
+}
+
+// Brand/project name
+.page-footer-brand {
+	width: 100%;
+	text-align: center;
+	
+	.page-footer-logo {
+		.svg-image("../img/logo-transparent.svg", @navbar-logo-size, @navbar-logo-size);
+		
+		@media (min-width: @grid-float-breakpoint) {
+			.svg-image("../img/logo-transparent.svg", @footer-logo-size, @footer-logo-size);
+		}
+	}
+}
+
+.footer-copyright {
+	width: 100%;
+	text-align: center;
+}
