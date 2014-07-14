@@ -45,13 +45,15 @@
 }
 
 // Remove padding when contained in a .container:
-.container,
-.container-fluid {
-  > .navbar-brand,
-  > .navbar-links {
-    margin-right: -@navbar-padding-horizontal;
-    margin-left:  -@navbar-padding-horizontal;
-  }
+@media (min-width: @grid-float-breakpoint) {
+	.container,
+	.container-fluid {
+		> .navbar-brand,
+		> .navbar-links {
+			margin-right: -@navbar-padding-horizontal;
+			margin-left:  -@navbar-padding-horizontal;
+		}
+	}
 }
 
 // Navbar links area
