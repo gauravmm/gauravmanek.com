@@ -78,5 +78,54 @@ def bkggen_triangle(name):
 
 	dwg.save()
 
+
+def bkggen_triangle_optimize(name):
+
+	# image size
+	img_draw_wd = "5.5cm"
+	img_draw_ht = "6cm"
+	img_cell_count = 12
+	img_cell_sz = 5
+	img_gutter_sz = 1
+
+	opacity = [0.05, 0.10, 0.15, 0.2]
+
+	dwg = svgwrite.Drawing(name, (img_draw_wd, img_draw_ht), debug=True)
+	# Define a user coordinate system:
+	img_user_sz = (img_cell_sz + img_gutter_sz) * img_cell_count
+
+	#Scale everything by 2 to prevent weird round-off errors
+	img_cell_sz *= 2
+	img_gutter_sz *= 2
+	img_user_sz *= 2
+
+	dwg.viewbox(0, 0,
+		(img_cell_sz + img_gutter_sz/2) * img_cell_count,
+		(img_cell_sz + img_gutter_sz) * img_cell_count)
+
+	opacity_layers = [dwg.add(dwg.g(fill='white', fill_opacity=op)) for op in opacity]
+
+	color_band_first = None
+	for _Cy in range(img_cell_count * 2 - 1, -2, -1):
+		_y = _Cy * (img_cell_sz + img_gutter_sz) / 2 + img_gutter_sz/2
+		color_band = [random.choice(opacity_layers) for _Cx in range(img_cell_count)]
+
+		if color_band_first is None:
+			color_band_first = color_band
+		elif _Cy == -1:
+			color_band = color_band_first
+
+		for _Cx, _fill in enumerate(color_band):
+			_x = _Cx * (img_cell_sz + img_gutter_sz / 2)
+
+			if _fill is not None:
+				if (_Cx + _Cy) % 2 == 0:
+					_fill.add(dwg.polygon(points=[(_x, _y), (_x + img_cell_sz, _y + img_cell_sz/2), (_x, _y + img_cell_sz)]))
+				else:
+					_fill.add(dwg.polygon(points=[(_x + img_cell_sz, _y), (_x, _y + img_cell_sz/2), (_x + img_cell_sz, _y + img_cell_sz)]))
+
+	dwg.save()
+
+
 if __name__ == '__main__':
-	bkggen_triangle("../source/img/bkg.svg")
+	bkggen_triangle_optimize("../source/img/bkg.svg")
