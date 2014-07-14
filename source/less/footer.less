@@ -6,10 +6,12 @@
 @footer-min-height:              200px;
 @footer-logo-size:							 0.8 * @footer-min-height;
 @footer-padding-top:        		 @line-height-computed;
+@footer-icon-size:							 36px;
 
 @footer-theme-bg:                @theme-primary-dark;
-@footer-theme-border:            darken(@navbar-theme-bg, @theme-border-darker-percentage);
-@footer-theme-link:              @theme-secondary-light;
+@footer-theme-border:            darken(@footer-theme-bg, @theme-border-darker-percentage);
+@footer-theme-text:							 @theme-secondary-light;
+@footer-theme-link:              @theme-primary-light;
 
 // Hover
 @footer-theme-hover-link:        @theme-secondary-dark;
@@ -38,7 +40,7 @@
   &:extend(.clearfix all);
 	
 	h1, h2, h3, h4, h5, h6 {
-		color: @footer-theme-link;
+		color: @footer-theme-text;
 	}
 	
 	text-align: center;
@@ -96,4 +98,29 @@
 .footer-copyright {
 	width: 100%;
 	text-align: center;
+	color: @footer-theme-text;
+	
+	a {
+		color: @footer-theme-link;
+		
+		&:hover,
+		&:focus {
+			color: @footer-theme-hover-link;
+			text-decoration: none;
+		}
+	}
+}
+
+
+.footer-linkedin {
+	.icon-linkedin;
+	.svg-icon-size(@footer-icon-size);
+}
+.footer-github {
+	.icon-github;
+	.svg-icon-size(@footer-icon-size);
+}
+.footer-mail {
+	.icon-mail;
+	.svg-icon-size(@footer-icon-size);
 }

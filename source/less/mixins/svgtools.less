@@ -1,0 +1,15 @@
+// SVG Image
+.svg-icon-size(@sz) {
+	.svg-icon-size(@sz, @sz);
+}
+.svg-icon-size(@wd; @ht) {
+ 	display: inline-block;
+  width: @wd;
+  height: @ht;
+  background-size: @wd @ht;
+	background-repeat: no-repeat;
+}
+
+.import-svg(@img){
+	background-image: data-uri("image/svg+xml;base64","../embed/@{img}.svg");
+}
