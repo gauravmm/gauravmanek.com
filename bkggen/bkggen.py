@@ -58,7 +58,7 @@ def bkggen_triangle(name):
 	#dwg.add(dwg.rect(insert=(0, 0), size=((img_cell_sz + img_gutter_sz/2) * img_cell_count, (img_cell_sz + img_gutter_sz) * img_cell_count), fill=rgb(128, 0, 0)))
 
 	color_band_first = None
-	for _Cy in range(img_cell_count * 2) + [-1]:
+	for _Cy in range(img_cell_count * 2 - 1, -2, -1):
 		_y = _Cy * (img_cell_sz + img_gutter_sz) / 2 + img_gutter_sz/2
 		color_band = [random.choice(colors) for _Cx in range(img_cell_count)]
 
