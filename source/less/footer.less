@@ -40,6 +40,11 @@
 	h1, h2, h3, h4, h5, h6 {
 		color: @footer-theme-link;
 	}
+	
+	text-align: center;
+	@media (min-width: @grid-float-breakpoint) {
+		text-align: left;
+	}
 }
 
 // Remove padding when contained in a .container:
@@ -52,9 +57,10 @@
   }
 }
 
-// Navbar links area
+// Footer links area
 .page-footer-links {
   overflow-x: visible;
+	padding: 0;
   &:extend(.clearfix all);
   -webkit-overflow-scrolling: touch;
 	
@@ -78,10 +84,11 @@
 	text-align: center;
 	
 	.page-footer-logo {
-		.svg-image("../img/logo-transparent.svg", @navbar-logo-size, @navbar-logo-size);
+		.icon-logo;
+		.svg-icon-size(@navbar-logo-size, @navbar-logo-size);
 		
 		@media (min-width: @grid-float-breakpoint) {
-			.svg-image("../img/logo-transparent.svg", @footer-logo-size, @footer-logo-size);
+			.svg-icon-size(@footer-logo-size, @footer-logo-size);
 		}
 	}
 }
