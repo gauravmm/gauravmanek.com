@@ -15,12 +15,14 @@
 
 // Hover
 @footer-theme-hover-link:        @theme-secondary-dark;
-@footer-theme-hover-line:        @theme-secondary-dark;
 
 // Current
 @footer-theme-current-link:      @theme-neutral;
 @footer-theme-current-bg:      	 @theme-primary-lessdark;
-@footer-theme-current-line:      darken(@navbar-theme-bg, @theme-border-darker-percentage);
+
+// Touch Assist
+@footer-theme-touch-assist:      darken(@navbar-theme-bg, @theme-border-darker-percentage);
+@touch-assist-padding: 	 6px;
 
 
 // Wrapper
@@ -76,6 +78,37 @@
 		&:focus {
 			color: @navbar-theme-hover-link;
 			text-decoration: none;
+		}
+	}
+	
+}
+
+.sitemap {
+	// If on small screen sizes, add more padding and make the hit-area obvious:
+	@media (max-width: @grid-float-breakpoint) {
+		> li {
+			min-width: 80%;
+		}
+		> li > a {
+			display: block;
+			width: 100%;
+			
+			padding: @touch-assist-padding;
+			margin: @touch-assist-padding auto;
+			background: @footer-theme-touch-assist;
+		}
+	}
+}
+
+.connect {
+	> li {
+		margin-left: @footer-icon-size / 4;
+		margin-right: @footer-icon-size / 4;
+		&:first-child {
+			margin-left: auto;
+		}
+		&:last-child {
+			margin-right: auto;
 		}
 	}
 }
