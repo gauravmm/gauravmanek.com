@@ -1,4 +1,32 @@
 //
+// Attaching navigation sidebar
+//
+//
+$(document).ready(function () {
+	"use strict";
+	
+	// Config
+	var domEltFix = $(".sidebar-nav"),
+		domFixTo = $(".scrollspy-search"),
+		cssFix = "fixed",
+		isFixed = false;
+
+	$(window).scroll(function () {
+		if ($(this).scrollTop() > domFixTo.offset().top) {
+			if (!isFixed) {
+				domEltFix.addClass(cssFix);
+				isFixed = true;
+			}
+		} else {
+			if (isFixed) {
+				domEltFix.removeClass(cssFix);
+				isFixed = false;
+			}
+		}
+	});
+});
+
+//
 // Scroll Spy
 //
 // Based on http://jsfiddle.net/mekwall/up4nu/
@@ -11,7 +39,7 @@ $(document).ready(function () {
 		tagHeader = "h1",
 		domDisplay = ".scrollspy-display",
 		cssCurrent = "scrollspy-current";
-  
+
 	// Assemble list of elements:
 	var lastElement = null,
 		menuEntries = $(domSearch).find(tagHeader).map(function (i, elt) {
@@ -23,7 +51,7 @@ $(document).ready(function () {
 
 	$(domDisplay).append($("<ol>").append(menuEntries));
 	
-  // Bind click handler to menu items
+	// Bind click handler to menu items
 	// so we can get a fancy scroll animation
 	menuEntries.click(function (e) {
 		var offsetTop = $($(this).prop("origHeader")).offset().top;

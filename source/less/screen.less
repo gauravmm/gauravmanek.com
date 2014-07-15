@@ -37,22 +37,27 @@ body {
 	
 	padding-bottom: @font-size-h3;
 	@media (min-width: @grid-float-breakpoint) {
-      h1 {
-				margin-top: @font-size-h1;
-			}
-			h2 {
-				margin-top: @font-size-h3;
-			}
-  }
+		h1 {
+			margin-top: @font-size-h1;
+		}
+		h2 {
+			margin-top: @font-size-h3;
+		}
+	}
 }
 
-@scrollspy-padding:					10px;
-@scrollspy-border-hover:		1px;
-@scrollspy-border-current:	2px;
+@scrollspy-padding:						10px;
+@scrollspy-border-hover:			1px;
+@scrollspy-border-current:		2px;
 
 .sidebar-nav {
 	.scrollspy-display {
 		display: none;
+	}
+	
+	&.fixed {
+		position: fixed;
+		top: 0;
 	}
 	
 	ol,
@@ -84,9 +89,10 @@ body {
 		}
 	}
 	
-  @media (max-width: @grid-float-breakpoint-max) {
-    display: none;
-  }
+	@media (max-width: @screen-sm-max) {
+		display: none;
+		visibility: hidden;
+	}
 }
 
 .page-footer > .container > .row > div {
