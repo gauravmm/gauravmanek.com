@@ -18,13 +18,11 @@ image = [
 def bkggen_triangle(name, image):
 
 	# image size
-	img_draw_wd = "2048px"
-	img_draw_ht = "2048px"
-	img_cell_count = 5
-	img_cell_sz = 5
-	img_gutter_sz = 1
-
-	base_color = rgb(255, 255, 255)
+	img_draw_wd = "152px"
+	img_draw_ht = "152px"
+	img_cell_count = 6
+	img_cell_sz = 6
+	img_gutter_sz = 2
 
 	dwg = svgwrite.Drawing(name, (img_draw_wd, img_draw_ht), debug=True)
 	# Define a user coordinate system:
@@ -35,19 +33,21 @@ def bkggen_triangle(name, image):
 	img_gutter_sz *= 2
 	img_user_sz *= 2
 
-	dwg.viewbox(0, 0,
-		(img_cell_sz + img_gutter_sz/2) * img_cell_count,
-		(img_cell_sz + img_gutter_sz) * img_cell_count)
-
+	dwg.viewbox(0, 0, img_user_sz, img_user_sz)
+	# Horizontal Center:
+	padding_left = (img_user_sz - (img_gutter_sz/2 * (img_cell_count - 1)) - (img_cell_sz * img_cell_count)) / 2
+	padding_top = 0
+	# Background
+	dwg.add(dwg.rect(insert=(0, 0), size=(img_user_sz, img_user_sz), fill="#542437"))
 	shapes = dwg.add(dwg.g(fill='white'))
 
 	#dwg.add(dwg.rect(insert=(0, 0), size=((img_cell_sz + img_gutter_sz/2) * img_cell_count, (img_cell_sz + img_gutter_sz) * img_cell_count), fill=rgb(128, 0, 0)))
 
 	for _Cy, color_band in enumerate(image):
-		_y = _Cy * (img_cell_sz + img_gutter_sz) / 2 + img_gutter_sz/2
+		_y = padding_top + _Cy * (img_cell_sz + img_gutter_sz) / 2 + img_gutter_sz/2
 
 		for _Cx, _fill in enumerate(color_band):
-			_x = _Cx * (img_cell_sz + img_gutter_sz / 2)
+			_x = padding_left + _Cx * (img_cell_sz + img_gutter_sz / 2)
 
 			if _fill == 1:
 				if (_Cx + _Cy) % 2 == 0:
@@ -58,4 +58,4 @@ def bkggen_triangle(name, image):
 	dwg.save()
 
 if __name__ == '__main__':
-	bkggen_triangle("./logo-gen.svg", image)
+	bkggen_triangle("./logo/logo-gen-162-6-2.svg", image)
