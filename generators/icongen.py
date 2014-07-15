@@ -20,9 +20,9 @@ def bkggen_triangle(name, image):
 	# image size
 	img_draw_wd = "152px"
 	img_draw_ht = "152px"
-	img_cell_count = 6
-	img_cell_sz = 6
-	img_gutter_sz = 2
+	img_cell_count = 5
+	img_cell_sz = 13
+	img_gutter_sz = 3
 
 	dwg = svgwrite.Drawing(name, (img_draw_wd, img_draw_ht), debug=True)
 	# Define a user coordinate system:
@@ -38,10 +38,8 @@ def bkggen_triangle(name, image):
 	padding_left = (img_user_sz - (img_gutter_sz/2 * (img_cell_count - 1)) - (img_cell_sz * img_cell_count)) / 2
 	padding_top = 0
 	# Background
-	dwg.add(dwg.rect(insert=(0, 0), size=(img_user_sz, img_user_sz), fill="#542437"))
+	#dwg.add(dwg.rect(insert=(0, 0), size=(img_user_sz, img_user_sz), fill="#542437"))
 	shapes = dwg.add(dwg.g(fill='white'))
-
-	#dwg.add(dwg.rect(insert=(0, 0), size=((img_cell_sz + img_gutter_sz/2) * img_cell_count, (img_cell_sz + img_gutter_sz) * img_cell_count), fill=rgb(128, 0, 0)))
 
 	for _Cy, color_band in enumerate(image):
 		_y = padding_top + _Cy * (img_cell_sz + img_gutter_sz) / 2 + img_gutter_sz/2
@@ -58,4 +56,4 @@ def bkggen_triangle(name, image):
 	dwg.save()
 
 if __name__ == '__main__':
-	bkggen_triangle("./logo/logo-gen-162-6-2.svg", image)
+	bkggen_triangle("./logo/logo-gen-162-13-3.svg", image)
