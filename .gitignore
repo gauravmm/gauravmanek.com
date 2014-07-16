@@ -1,6 +1,7 @@
 # Jekyll
 _site
 _content/css/main.css
+_content/img/*
 
 # Sublime Text
 *.sublime-workspace
