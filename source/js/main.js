@@ -36,18 +36,20 @@ $(document).ready(function () {
 	
 	// Variables/Config
 	var domSearch = ".scrollspy-search",
+		domHeader = ".page-title",
 		tagHeader = "h1",
 		domDisplay = ".scrollspy-display",
 		cssCurrent = "scrollspy-current";
 
 	// Assemble list of elements:
 	var lastElement = null,
-		menuEntries = $(domSearch).find(tagHeader).map(function (i, elt) {
+		menuEntries = $(domHeader).add(domSearch).find(tagHeader).map(function (i, elt) {
 			// Create an li, keep track of the original element
 			// Wrap the contents inside a span, give it the same text as the original, return the raw DOM node.
 			return $("<li>").prop("origHeader", elt)
 				.append($("<span>").text($(elt).text())).get();
 		});
+  
 
 	$(domDisplay).append($("<ol>").append(menuEntries));
 	
