@@ -68,7 +68,7 @@ $(document).ready(function () {
 		// Get container scroll position
 		var fromTop = $(this).scrollTop(),
 			cur = menuEntries.map(function () {
-				if ($($(this).prop("origHeader")).offset().top < fromTop) {
+				if ($($(this).prop("origHeader")).offset().top <= fromTop) {
 					return this;
 				}
 			});
