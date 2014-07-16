@@ -22,6 +22,7 @@
 
 // Touch Assist
 @footer-theme-touch-assist:      darken(@navbar-theme-bg, @theme-border-darker-percentage);
+@footer-theme-touch-assist-current: lighten(@navbar-theme-bg, @theme-border-darker-percentage);
 @touch-assist-padding: 	 6px;
 
 
@@ -88,6 +89,11 @@
 	@media (max-width: @grid-float-breakpoint) {
 		> li {
 			min-width: 80%;
+		  
+			&.navbar-current > a {
+			  background: @footer-theme-touch-assist-current;
+			  border: thin solid @footer-theme-touch-assist;
+			}
 		}
 		> li > a {
 			display: block;
@@ -96,7 +102,8 @@
 			padding: @touch-assist-padding;
 			margin: @touch-assist-padding auto;
 			background: @footer-theme-touch-assist;
-		}
+		  	border: thin solid @footer-theme-touch-assist;
+		}			
 	}
 }
 

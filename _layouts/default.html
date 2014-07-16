@@ -22,12 +22,7 @@
 			<a class="navbar-toggle" href="#sitemap">&#9776;</a>
 			<a class="navbar-brand" href="#"><span class="navbar-logo">&nbsp;</span><span class="navbar-logo-text">{{ site.name }}</span></a>
 			<ul class="navbar-links">
-				<li><a href="/">Home</a></li>
-				{% assign sorted_pages = site.pages | sort:"innavbar-order" %}
-				{% for navpage in sorted_pages %}
-				{% if navpage.innavbar == true %}
-						<li {% if navpage.path == page.path %} class="navbar-current" {%endif%} ><a href="{{ navpage.url }}">{{ navpage.title }}</a></li>
-				{% endif %}{% endfor %}
+				{% include nav.html %}
 			</ul>
 			</div>
 		</div>
@@ -39,6 +34,7 @@
 		</div>
 		<div class="container-bkg">
 			<div class="container main-content">
+			{{ page.categories }}
 				<div class="row">
 					{{content}}
 				</div>
@@ -51,11 +47,7 @@
 						<a name="sitemap"></a>
 						<h3>Sitemap</h3>
 						<ul class="page-footer-links sitemap">
-							<li><a href="#">Home</a></li>
-							{% for navpage in site.pages %}
-							{% if navpage.innavbar == true %}
-							<li><a href="{{ navpage.url }}">{{ navpage.title }}</a></li>
-							{% endif %}{% endfor %}
+							{% include nav.html %}
 							<li class="footer-jump-top"><a href="#top">Top &uarr;</a></li>
 						</ul>
 					</div>

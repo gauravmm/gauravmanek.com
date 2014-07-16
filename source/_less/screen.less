@@ -52,8 +52,8 @@ body {
 	}
 }
 
-@scrollspy-padding:						10px;
-@scrollspy-border-hover:			1px;
+@scrollspy-padding:				10px;
+@scrollspy-border-hover:		1px;
 @scrollspy-border-current:		2px;
 
 .sidebar-nav {
@@ -88,7 +88,8 @@ body {
 				border-left: @scrollspy-border-hover solid @theme-primary-dark;
 			}
 			
-			&.scrollspy-current {
+			&.scrollspy-current,
+		  	&.navbar-current {
 				padding-left: @scrollspy-padding - @scrollspy-border-current;
 				border-left: @scrollspy-border-current solid @theme-primary-dark;
 			}
