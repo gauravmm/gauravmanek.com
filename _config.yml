@@ -18,6 +18,7 @@ defaults:
     values:
       layout: "page"
       innavbar: false
+      innavbar-order: 100
   -
     scope:
       path: "/projects"

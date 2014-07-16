@@ -23,72 +23,71 @@
 			<a class="navbar-brand" href="#"><span class="navbar-logo">&nbsp;</span><span class="navbar-logo-text">{{ site.name }}</span></a>
 			<ul class="navbar-links">
 				<li><a href="/">Home</a></li>
-				{% for navpage in site.pages %}
+				{% assign sorted_pages = site.pages | sort:"innavbar-order" %}
+				{% for navpage in sorted_pages %}
 				{% if navpage.innavbar == true %}
 						<li {% if navpage.path == page.path %} class="navbar-current" {%endif%} ><a href="{{ navpage.url }}">{{ navpage.title }}</a></li>
 				{% endif %}{% endfor %}
 			</ul>
 			</div>
-	</div>
-
-	<div class="page-title">
-		<div class="container">
-			<h1>{{ page.title }}</h1>
-			{% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
 		</div>
-	</div>
-	<div class="container main-content">
-	<div class="row">
-		{{content}}
-	</div>
-	</div> <!-- /container -->
-	 
-	<div class="page-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3">
-					<a name="sitemap"></a>
-					<h3>Sitemap</h3>
-					<ul class="page-footer-links sitemap">
-						<li><a href="#">Home</a></li>
-						{% for navpage in site.pages %}
-						{% if navpage.innavbar == true %}
-						<li><a href="{{ navpage.url }}">{{ navpage.title }}</a></li>
-						{% endif %}{% endfor %}
-						<li class="footer-jump-top"><a href="#top">Top &uarr;</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3">
-					<h3>Connect</h3>
-					<ul class="page-footer-links connect">
-						<li><a href="http://sg.linkedin.com/in/gauravmanek"><span class="footer-linkedin">&nbsp;</span></a></li>
-						<li><a href="https://github.com/gauravmm"><span class="footer-github">&nbsp;</span></a></li>
-						<li><a href="mailto:gaurav@gauravmanek.com"><span class="footer-mail">&nbsp;</span></a></li>
-						<li><a href="/feed.xml"><span class="footer-rss">&nbsp;</span></a></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-3">
-					<div class="page-footer-brand"><span class="page-footer-logo">&nbsp;</span></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 footer-copyright">&copy; Gaurav Manek 2014. <a href="https://github.com/gauravmm/gauravmanek.com_template">Get the source code.</a></div>
+		<div class="page-title">
+			<div class="container">
+				<h1>{{ page.title }}</h1>
+				{% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
 			</div>
 		</div>
-	</div>
-	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
-	<script src="/js/main.js"></script>
+		<div class="container main-content">
+			<div class="row">
+				{{content}}
+			</div>
+		</div>
+		<div class="page-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-3">
+						<a name="sitemap"></a>
+						<h3>Sitemap</h3>
+						<ul class="page-footer-links sitemap">
+							<li><a href="#">Home</a></li>
+							{% for navpage in site.pages %}
+							{% if navpage.innavbar == true %}
+							<li><a href="{{ navpage.url }}">{{ navpage.title }}</a></li>
+							{% endif %}{% endfor %}
+							<li class="footer-jump-top"><a href="#top">Top &uarr;</a></li>
+						</ul>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-3">
+						<h3>Connect</h3>
+						<ul class="page-footer-links connect">
+							<li><a href="http://sg.linkedin.com/in/gauravmanek"><span class="footer-linkedin">&nbsp;</span></a></li>
+							<li><a href="https://github.com/gauravmm"><span class="footer-github">&nbsp;</span></a></li>
+							<li><a href="mailto:gaurav@gauravmanek.com"><span class="footer-mail">&nbsp;</span></a></li>
+							<li><a href="/feed.xml"><span class="footer-rss">&nbsp;</span></a></li>
+						</ul>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-3">
+						<div class="page-footer-brand"><span class="page-footer-logo">&nbsp;</span></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 footer-copyright">&copy; Gaurav Manek 2014. <a href="https://github.com/gauravmm/gauravmanek.com_template">Get the source code.</a></div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+		<script src="/js/main.js"></script>
 
-	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-	<script>
-		(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-		function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-		e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-		e.src='//www.google-analytics.com/analytics.js';
-		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-		ga('create','UA-XXXXX-X');ga('send','pageview');
-	</script>
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+		<script>
+			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+			e.src='//www.google-analytics.com/analytics.js';
+			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+			ga('create','UA-XXXXX-X');ga('send','pageview');
+		</script>
 	</body>
 </html>
