@@ -1,5 +1,6 @@
 ---
 title: iPad- and Kinect-Controlled Car
+subtitle: Novel ways to control things.
 ---
 This project extends a simple remote-controlled car, allowing it to be controlled by an iPad or by hand gestures. This project builds on the [Arduino](http://arduino.cc/) project, the Kinect and certain HTML5 features ([WebSockets](http://en.wikipedia.org/wiki/WebSockets), [DeviceMotionEvent](http://developer.apple.com/library/safari/#documentation/SafariDOMAdditions/Reference/DeviceMotionEventClassRef/DeviceMotionEvent/DeviceMotionEvent.html#//apple_ref/javascript/cl/DeviceMotionEvent), [Canvas](http://en.wikipedia.org/wiki/Canvas_element)). The final product is this:
 

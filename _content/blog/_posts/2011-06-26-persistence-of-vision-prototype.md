@@ -1,23 +1,6 @@
 ---
-layout: post
-status: publish
-published: true
 title: Persistence of Vision prototype
-author:
-  display_name: gauravmm
-  login: gauravmm
-  email: maneks@gmail.com
-  url: ''
-author_login: gauravmm
-author_email: maneks@gmail.com
-wordpress_id: 42
-wordpress_url: http://www.gauravmanek.com/blog/?p=42
-date: !binary |-
-  MjAxMS0wNi0yNiAxNToyMzoxMCArMDgwMA==
-date_gmt: !binary |-
-  MjAxMS0wNi0yNiAwNzoyMzoxMCArMDgwMA==
-categories:
-- Projects
+subtitle: An attempt to bring colour to persistence-of-vision devices.
 ---
 <p>Recently, I saw an impressive business card how-to that uses Persistence of Vision to display floating text. <a href="http://www.instructables.com/id/Circuit-Board-Lab-POV-Business-Card/">Take a look at it</a>.</p>
 <p>I was considering the plausibility of a version of this card that can display the text and graphics in color. The basic mechanism (Persistence of Vision) is still the same, but the new card uses either 3-color RGB SMD LEDs (which are prohibitively expensive), or three rows of LEDs (red, green and blue each get their own row).</p>

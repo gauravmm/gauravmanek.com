@@ -1,5 +1,6 @@
 ---
 title: 3D Histogram
+subtitle: Visualizing color spaces.
 ---
 Recently, as part of my research, I implemented a modified version of the algorithm detailed in [this](http://lagis-vi.univ-lille1.fr/bibtex/upload/2004/busin_icip_2004.pdf) paper. While it was unsuitable for the intended purpose, the process did yield interesting results in the form of three-dimensional color-frequency histograms.
 
