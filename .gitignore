@@ -1,3 +1,9 @@
+# Jekyll
+_site
+
+# Sublime Text
+*.sublime-workspace
+
 # gEdit temp file
 *~
 
