@@ -98,3 +98,38 @@ body {
 .page-footer > .container > .row > div {
 	padding-bottom: @line-height-computed;
 }
+
+@postdate-width: 36px;
+.postlink {
+	&:extend(.clearfix all);
+	overflow: auto;
+	margin-bottom: @line-height-computed / 2;
+	margin-left: @line-height-computed / 2;
+	
+	.postdate {
+		display: inline-block;
+		padding: 3px;
+		width: @postdate-width;
+		height: 100%;
+		float: left;
+		
+		:last-child,
+		:first-child {
+			color: @theme-secondary-light;
+		}
+		
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		text-transform: uppercase;
+		text-align: center;
+		background: @theme-primary-lessdark;
+	}
+	
+	.h3,
+	.h5 {
+		margin-left: 8px;
+	}
+}

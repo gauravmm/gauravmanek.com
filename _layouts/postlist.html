@@ -9,11 +9,11 @@ layout: page
 			{% capture year %}{{currentyear}}{% endcapture %} 
 		{% endif %}
 		<div class="postlink">
-			<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+			<span class="postdate">{{ post.date | date: "<h5>%b</h5><h3>%d</h3>" }}</span>
+			<span class="h3"><a href="{{ post.url }}">{{ post.title }}</a></span>
 			{% if post.subtitle %}
-				<h5>{{ post.subtitle }}</h5>
+				<span class="h5">{{ post.subtitle }}</span>
 			{% endif %}
-			<p class="meta">Date: {{ post.date }}</p>
 		</div>
   {% endif %}
 {% endfor %}
