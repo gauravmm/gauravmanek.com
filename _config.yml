@@ -10,3 +10,24 @@ plugins:     ./_plugins
 layouts:     ./_layouts
 include:     ['.htaccess']
 exclude:     []
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "page"
+      innavbar: false
+  -
+    scope:
+      path: "/projects"
+    values:
+      layout: "post"
+      category: "projects"
+
+  -
+    scope:
+      path: "/blog"
+    values:
+      layout: "post"
+      category: "blog"

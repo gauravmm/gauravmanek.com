@@ -1,0 +1,22 @@
+---
+layout: post
+title: Projects
+innavbar: true
+---
+
+{% for post in site.posts %}
+  {% if post.categories contains 'projects' %}
+		{% capture currentyear %}{{post.date | date: "%Y"}}{% endcapture %}
+		{% if currentyear != year %}
+			<h1>{{ currentyear }}</h1>
+			{% capture year %}{{currentyear}}{% endcapture %} 
+		{% endif %}
+		<div class="postlink">
+			<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+			{% if post.subtitle %}
+				<h5>{{ post.subtitle }}</h5>
+			{% endif %}
+			<p class="meta">Date: {{ post.date }}</p>
+		</div>
+  {% endif %}
+{% endfor %}
