@@ -45,8 +45,8 @@ Debugging the cache system is usually difficult, but here is a simple way to kee
 
 {% highlight php %}
 <?php
-header(&quot;Content-type: application/x-javascript&quot;);
-echo &quot;var php_date=\&quot;&quot;.date(&quot;r&quot;).&quot;\&quot;;&quot;;
+header("Content-type: application/x-javascript");
+echo "var php_date=\"".date("r")."\";";
 ?>
 {% endhighlight %}
 
@@ -55,7 +55,7 @@ It acts as an external JavaScript file that defines the value of the variable ph
 {% highlight js %}
 function display_initialize(){
 	// ...
-	document.getElementById(&quot;update_date&quot;).innerHTML = php_date;
+	document.getElementById("update_date").innerHTML = php_date;
 }
 {% endhighlight %}
 
