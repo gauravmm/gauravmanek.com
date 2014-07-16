@@ -18,7 +18,7 @@ Now, to take a closer look at each section of this project, from the bottom-up:
 
 The Arduino receives commands from its Serial interface and toggles its output to control the car's remote controller.Â  For a controller that supports only one speed, the circuit looks like this:
 
-![Fritzing image of circuit](projects/img/2011-03-28-ipad-and-kinect-controlled-car/RGB_Cube_Show_lowgamma_cutout_a.png "Fritzing image of circuit")
+![Fritzing image of circuit](projects/img/2011-03-28-ipad-and-kinect-controlled-car/RC-Control_bb.png "Fritzing image of circuit")
 
 Each output pin controls current passing through an [opto-isolator](http://en.wikipedia.org/wiki/Opto-isolator), which isolates the circuit of the Arduino from that of the car's controller. This allows the Arduino to control the car, despite both circuits having different electrical potentials. The switches at the top of the above diagrams are placeholders for the actual control mechanism of the car. A current-limiting resistor is chosen so as to provide a current within the operating parameters of the opto-isolator. The breadboarded circuit looks like this:
 
