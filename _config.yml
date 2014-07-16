@@ -1,0 +1,12 @@
+name: Gaurav Manek
+markdown: redcarpet
+highlighter: pygments
+description: "An online portfolio and website."
+url: "http://www.gauravmanek.com"
+
+source:      ./_content
+destination: ./_site
+plugins:     ./_plugins
+layouts:     ./_layouts
+include:     ['.htaccess']
+exclude:     []
