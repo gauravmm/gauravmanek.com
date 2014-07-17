@@ -47,7 +47,7 @@ $(document).ready(function () {
 			// Create an li, keep track of the original element
 			// Wrap the contents inside a span, give it the same text as the original, return the raw DOM node.
 			return $("<li>").prop("origHeader", elt)
-				.append($("<span>").text($(elt).text())).get();
+				.append($("<a>").text($(elt).text())).get();
 		});
   
 

@@ -57,6 +57,7 @@ gulp.task('clean', function(cb) {
 //// Build
 //
 
+
 //// Jekyll
 
 gulp.task('build-jekyll-run', ['clean'], function(cb) {
@@ -73,9 +74,10 @@ gulp.task('build-jekyll-html', ['build-jekyll-run'], function() {
 });
 gulp.task('build-jekyll', ['build-jekyll-html'], function() {
   // Clean up after the jekyll build
-  return gulp.src([paths.dest_jekyll + "*"], { read: false })
+  return gulp.src([paths.dest_jekyll], { read: false })
     .pipe(rimraf());
 });
+
 
 //// Static Files
 
@@ -85,6 +87,7 @@ gulp.task('build-copystatic', ['build-jekyll'], function() {
     .pipe(gulp.dest(paths.dest));
 });
 
+
 //// Transformations
 
 // Perform all transforms.lessc
@@ -92,7 +95,10 @@ gulp.task('build-lessc', ['build-copystatic', 'build-jekyll'], function() {
   if (!transforms.lessc) throw new Error("transforms.lessc not defined");
   return gulp.src(transforms.lessc.from, { cwd: paths.source })
     .pipe(less())
-    .pipe(uncss({ html: glob.sync(paths.dest + "**/*.html") }))
+    .pipe(uncss({
+            html: glob.sync(paths.dest + "**/*.html"),
+            ignore: [/\.scrollspy\-(.*)/, ".sidebar-nav.fixed"]
+          }))
     .pipe(minifyCSS({noRebase:true, keepSpecialComments:0}))
     .pipe(gulp.dest(paths.dest + transforms.lessc.to));
 });
@@ -102,8 +108,11 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
     .pipe(uglify())
     .pipe(gulp.dest(paths.dest + transforms.js.to));
 });
-gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin'], function(){
 
+
+//// Main Task
+
+gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin'], function(){
 });
 
 
