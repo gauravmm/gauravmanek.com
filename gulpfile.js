@@ -10,9 +10,11 @@ var uglify = require('gulp-uglify');        // JS Processing
 var less = require('gulp-less');            // Less
 var uncss = require('gulp-uncss');          // Remove unused CSS
 var minifyCSS = require('gulp-minify-css'); // Minify CSS
-var glob = require('glob');                 // Used to list all HTML files.
-var rename = require('gulp-rename');
-var imagemin = require('gulp-imagemin');    // Image processing
+var glob = require('glob');                 // Used to list all HTML files to pass to the CSS minifier
+var rename = require('gulp-rename');        // Used to modify the path of blog images.
+var imagemin = require('gulp-imagemin');    // Image minification
+var pngcrush = require('imagemin-pngcrush');// Plugin for imagemin
+var imageResize = require('gulp-image-resize'); // Image resizing
 var rimraf = require('gulp-rimraf');        // Clean
 var gutil = require('gulp-util');           // Utitlites [noop(), ...]
 var debug = require('gulp-debug');          // debug
@@ -40,7 +42,7 @@ var transforms = {
   lessc: {from: ["_less/main.less"], to: "css/"},
   js: {from: ["_js/*"], to: "js/"},
   cssmin: [{files: ["css/main.css"]}],
-  imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/"}
+  imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", max_width: 600, max_height: 400}
 };
 
 
@@ -119,9 +121,21 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
 // Copy all blog images, scaling and optimizing as necessary.
 gulp.task('build-blogimages', ['build-copystatic'], function() {
   var im = transforms.imagemin;
-  // {parent: "_posts/", folder: "_*/", exts: ['.jpg', '.jpeg', '.gif', '.png']}
   return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
     .pipe(rename(function (path) { path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name) }))
+    .pipe(imageResize({
+        width: im.max_width,
+        height: im.max_height,
+        imageMagick: true
+      }))
+    // Workaround to prevent optipng bug in imagemin
+    // https://github.com/google/web-starter-kit/issues/279
+    .pipe(gulpif(/.*\.(?!png)/, imagemin({
+        optimizationLevel: 0,
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngcrush()]
+      })))
     .pipe(gulp.dest(paths.dest));
 });
 
