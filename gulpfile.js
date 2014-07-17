@@ -1,3 +1,5 @@
+"use strict"
+
 var gulp = require('gulp');
 
 
@@ -9,6 +11,7 @@ var less = require('gulp-less');            // Less
 var uncss = require('gulp-uncss');          // Remove unused CSS
 var minifyCSS = require('gulp-minify-css'); // Minify CSS
 var glob = require('glob');                 // Used to list all HTML files.
+var rename = require('gulp-rename');
 var imagemin = require('gulp-imagemin');    // Image processing
 var rimraf = require('gulp-rimraf');        // Clean
 var gutil = require('gulp-util');           // Utitlites [noop(), ...]
@@ -24,7 +27,8 @@ var debug = require('gulp-debug');          // debug
 
 var paths = {
   source: 'source/',  // The design source
-  ignore: '!**/_*{,/**}',    // Ignore all things that have underscores in them
+  content: '_content/',
+    ignore: '!**/_*{,/**}',    // Ignore all things that have underscores in them
   source_jekyll: '.', // The location of the _config.yml file
   dest_jekyll: '_site/', // The location of the _config.yml file
   glob_jekyll_minify_regex: /.*\.html/, // All the jekyll files to minify
@@ -36,7 +40,7 @@ var transforms = {
   lessc: {from: ["_less/main.less"], to: "css/"},
   js: {from: ["_js/*"], to: "js/"},
   cssmin: [{files: ["css/main.css"]}],
-  imagemin: [{parent: "_posts/", folder: "_*", relative: "../"}]
+  imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/"}
 };
 
 
@@ -66,12 +70,14 @@ gulp.task('build-jekyll-run', ['clean'], function(cb) {
     cb(); // finished task
   });
 });
+
 gulp.task('build-jekyll-html', ['build-jekyll-run'], function() {
   return gulp.src(paths.dest_jekyll + "**", { base: paths.dest_jekyll })
     // Only process .html files:
     .pipe(gulpif(paths.glob_jekyll_minify_regex, htmlmin({collapseWhitespace: true})))
     .pipe(gulp.dest(paths.dest));
 });
+
 gulp.task('build-jekyll', ['build-jekyll-html'], function() {
   // Clean up after the jekyll build
   return gulp.src([paths.dest_jekyll], { read: false })
@@ -102,6 +108,7 @@ gulp.task('build-lessc', ['build-copystatic', 'build-jekyll'], function() {
     .pipe(minifyCSS({noRebase:true, keepSpecialComments:0}))
     .pipe(gulp.dest(paths.dest + transforms.lessc.to));
 });
+
 gulp.task('build-jsmin', ['build-copystatic'], function() {
   if (!transforms.js) throw new Error("transforms.js not defined");
   return gulp.src(transforms.js.from, { cwd: paths.source })
@@ -109,10 +116,19 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
     .pipe(gulp.dest(paths.dest + transforms.js.to));
 });
 
+// Copy all blog images, scaling and optimizing as necessary.
+gulp.task('build-blogimages', ['build-copystatic'], function() {
+  var im = transforms.imagemin;
+  // {parent: "_posts/", folder: "_*/", exts: ['.jpg', '.jpeg', '.gif', '.png']}
+  return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
+    .pipe(rename(function (path) { path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name) }))
+    .pipe(gulp.dest(paths.dest));
+});
+
 
 //// Main Task
 
-gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin'], function(){
+gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin', 'build-blogimages'], function(){
 });
 
 
