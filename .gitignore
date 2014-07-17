@@ -1,5 +1,8 @@
+# Output
+publish/
+
 # Jekyll
-_site
+_site/
 _content/css/*
 _content/js/*
 _content/img/*
