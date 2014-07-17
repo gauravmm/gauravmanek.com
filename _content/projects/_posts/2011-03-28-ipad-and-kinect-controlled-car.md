@@ -18,11 +18,11 @@ Now, to take a closer look at each section of this project, from the bottom-up:
 
 The Arduino receives commands from its Serial interface and toggles its output to control the car's remote controller.Â  For a controller that supports only one speed, the circuit looks like this:
 
-![Fritzing image of circuit](projects/img/2011-03-28-ipad-and-kinect-controlled-car/RC-Control_bb.png "Fritzing image of circuit")
+![Fritzing image of circuit](/projects/img/2011-03-28-ipad-and-kinect-controlled-car/RC-Control_bb.png "Fritzing image of circuit")
 
 Each output pin controls current passing through an [opto-isolator](http://en.wikipedia.org/wiki/Opto-isolator), which isolates the circuit of the Arduino from that of the car's controller. This allows the Arduino to control the car, despite both circuits having different electrical potentials. The switches at the top of the above diagrams are placeholders for the actual control mechanism of the car. A current-limiting resistor is chosen so as to provide a current within the operating parameters of the opto-isolator. The breadboarded circuit looks like this:
 
-![Photo of Arduino circuit](projects/img/2011-03-28-ipad-and-kinect-controlled-car/DSC_5087.jpg "Photo of Arduino circuit")
+![Photo of Arduino circuit](/projects/img/2011-03-28-ipad-and-kinect-controlled-car/DSC_5087.jpg "Photo of Arduino circuit")
 
 The sketch that the Arduino runs is very simple:
 
@@ -83,7 +83,7 @@ And now, on to the Web App-based controller:
 
 This controller comes in two parts. One is the actual client, which is served as a single html file (with optional additions - discussed later), and one is the server, which is a Python script that simply copies all data sent over a WebSocket to the Arduino over a serial port. This is how the client interface looks like:
 
-![iPad Interface](projects/img/2011-03-28-ipad-and-kinect-controlled-car/Untitled-1.png "iPad Interface")
+![iPad Interface](/projects/img/2011-03-28-ipad-and-kinect-controlled-car/Untitled-1.png "iPad Interface")
 
 The server is based on [this](http://pastebin.com/zBjN02jQ) Python script (if you want to use a test server, grab [this](http://pastebin.com/d8SDbbED) code - the response headers adhere to the Same-Origin Policy). [pyserial](http://sourceforge.net/projects/pyserial/files/pyserial/2.5/) 2.5 is used to send output to the Arduino.
 
@@ -97,7 +97,7 @@ The purpose of the optional files (`cache_manifest.php` and `date.php`) is expla
 
 The Kinect controller is written using [Code Laboratories' CL NUI SDK](http://codelaboratories.com/nui/) instead of the more commonly used (and official) OpenNI or OpenKinect/libfreenect. The primary motivation in choosing CL NUI over the other SDKs is that CL NUI makes writing code in C# very easy and serial communication is a trivially easy in C#. The tradeoff of writing in managed C# is that (1) Threading is inevitable, which adds to the complexity of the code and (2) The image processing code runs painfully slowly. The software looks like this:
 
-![Kinect view](projects/img/2011-03-28-ipad-and-kinect-controlled-car/screenshot_kinect.png "Kinect view")
+![Kinect view](/projects/img/2011-03-28-ipad-and-kinect-controlled-car/screenshot_kinect.png "Kinect view")
 
 The bar on the left is not relevant to this project - it is just a quick way to move the Kinect up and down (using the built-in motor) and to read and graph the angle over time. The algorithm used to detect the position of the hand has been deliberately kept simple - working with System.Drawing.Bitmap objects is very slow. Here is the algorithm:
 
