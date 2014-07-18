@@ -129,7 +129,6 @@ var blogImageTransform = function (im, style) {
 				path.extname = "." + style.name + path.extname.toLowerCase();
 			})
 		.pipe(gulpIgnore.exclude, function (file) {
-				console.log(file.path);
 				return fs.existsSync(file.path);
 			})
 		.pipe(imageResize, {
@@ -152,19 +151,19 @@ var styleNames = im.styles.map(function (e) { return e.name });
 var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
 
 
-function blogImageStream (im, ifProcessed, ifNotProcessed) {
+function blogImageStream (ifProcessed, ifNotProcessed) {
 	return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
 				.pipe(gulpif(styleNamesRegexp,
 						ifProcessed(),
 						ifNotProcessed()
-					))
+					));
 }
 
 function blogImageBuild(){
 	// Parallel from this
 	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
 	var tasks = im.styles.map(function(style) {
-			return blogImageStream(im, gutil.noop, blogImageTransform(im, style));
+			return blogImageStream(gutil.noop, blogImageTransform(im, style));
 		});
 
 	var rv = es.concat.apply(null, tasks);
@@ -199,6 +198,13 @@ gulp.task('blogimages', [], function() {
 	return blogImageBuild();
 });
 
+gulp.task('blogimages-clean', [], function() {
+	return blogImageStream(function() {return rimraf({ force: true })}, gutil.noop);
+});
+
+gulp.task('blogimages-clean-originals', ['blogimages'], function() {
+	return blogImageStream(gutil.noop, function() {return rimraf({ force: true })});
+});
 
 //
 //// Watchers
