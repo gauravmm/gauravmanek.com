@@ -18,7 +18,7 @@ var imageResize = require('gulp-image-resize'); // Image resizing
 var rimraf = require('gulp-rimraf');        // Clean
 var gutil = require('gulp-util');           // Utitlites [noop(), ...]
 var debug = require('gulp-debug');          // debug
-
+var es = require('event-stream');           // For parallel processing of streams
 
 
 
@@ -42,7 +42,7 @@ var transforms = {
   lessc: {from: ["_less/main.less"], to: "css/"},
   js: {from: ["_js/*"], to: "js/"},
   cssmin: [{files: ["css/main.css"]}],
-  imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", max_width: 600, max_height: 400}
+  imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", styles: [{name: "thumb", max_width: 600, max_height: 400}, {name: "full", max_width: 2048, max_height: 2048}]}
 };
 
 
@@ -119,24 +119,33 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
 });
 
 // Copy all blog images, scaling and optimizing as necessary.
+//styles: [{name: "thumb", max_width: 600, max_height: 400},
 gulp.task('build-blogimages', ['build-copystatic'], function() {
   var im = transforms.imagemin;
-  return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
-    .pipe(rename(function (path) { path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name) }))
-    .pipe(imageResize({
-        width: im.max_width,
-        height: im.max_height,
-        imageMagick: true
-      }))
-    // Workaround to prevent optipng bug in imagemin
-    // https://github.com/google/web-starter-kit/issues/279
-    .pipe(gulpif(/.*\.(?!png)/, imagemin({
-        optimizationLevel: 0,
-        progressive: true,
-        svgoPlugins: [{removeViewBox: false}],
-        use: [pngcrush()]
-      })))
-    .pipe(gulp.dest(paths.dest));
+  // Parallel from this
+  // http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
+  var tasks = im.styles.map(function(style) {
+      return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
+        .pipe(rename(function (path) {
+            path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name);
+            path.extname = "." + style.name + path.extname.toLowerCase();
+          }))
+        .pipe(imageResize({
+            width: style.max_width,
+            height: style.max_height,
+            imageMagick: true
+          }))
+        // Workaround to prevent optipng bug in imagemin
+        // https://github.com/google/web-starter-kit/issues/279
+        .pipe(gulpif(/.*\.png/, gutil.noop(), imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngcrush()]
+          })))
+        .pipe(gulp.dest(paths.dest));
+    });
+
+  return es.concat.apply(null, tasks);
 });
 
 
