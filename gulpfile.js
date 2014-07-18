@@ -20,8 +20,8 @@ var gutil = require('gulp-util');           // Utitlites [noop(), ...]
 var debug = require('gulp-debug');          // debug
 var es = require('event-stream');           // For parallel processing of streams
 var lazypipe = require('lazypipe');			// For abstracting over streams
-var include = require('gulp-ignore').include; // For only copying over certain images.
-
+var gulpIgnore = require('gulp-ignore'); 	// For only copying over certain images.
+var fs = require('fs');						// To check if images already exist before converting them.
 
 
 //
@@ -123,13 +123,14 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
 
 // The transformations applied on images to convert them from the source to the export formats.
 // 
-var blogImageTransform = function (im, style, replaceOriginal) {
+var blogImageTransform = function (im, style) {
 	return lazypipe()
 		.pipe(rename, function (path) {
-				if (!replaceOriginal) {
-					path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name);
-				}
 				path.extname = "." + style.name + path.extname.toLowerCase();
+			})
+		.pipe(gulpIgnore.exclude, function (file) {
+				console.log(file.path);
+				return fs.existsSync(file.path);
 			})
 		.pipe(imageResize, {
 				width: style.max_width,
@@ -163,14 +164,18 @@ function blogImageBuild(){
 	// Parallel from this
 	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
 	var tasks = im.styles.map(function(style) {
-			return blogImageStream(im, gutil.noop, blogImageTransform(im, style, replaceOriginal));
+			return blogImageStream(im, gutil.noop, blogImageTransform(im, style));
 		});
 
 	var rv = es.concat.apply(null, tasks);
 
 	return rv
-		.pipe(include(styleNamesRegexp)) // Only keep
-		.pipe(gulp.dest(paths.content)); // Pipe the output to the content folder
+		.pipe(gulpIgnore.include(styleNamesRegexp)) // Only keep the processed files
+		.pipe(gulp.dest(paths.content))  // Pipe the output to the content folder
+		.pipe(rename(function (path) {
+				path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name);
+			})) // Alter the paths for the processed images
+		.pipe(gulp.dest(paths.dest)); // Merge into final site
 }
 	
 // Copy all blog images, scaling and optimizing as necessary.
