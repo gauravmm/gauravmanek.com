@@ -16,7 +16,7 @@ This work is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unp
 
 ## pmOAS
 
-![pmOAS Demo](/projects/2012-01-01-old-projects/OAS.gif)
+{% include blogimage src="pmOAS.png" caption="pmOAS Demo" %}
 
 A simple, configurable, Optical Answer Sheet (OAS) solution that anyone can use.
 
