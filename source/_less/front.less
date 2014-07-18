@@ -6,6 +6,7 @@
 @front-logo-size:					300px;
 @front-logo-size-small:				150px;
 @front-icon-size:					24px;
+@front-icon-size-small:				36px;
 
 @frac-m-pos: 0.3;
 
@@ -76,6 +77,10 @@ body.frontmatter {
 	}
 }
 
+.front-text > * {
+	margin-bottom: @line-height-computed;
+}
+
 @media (min-width: @screen-sm-min) {
 	.front-text {
 		position: relative;
@@ -131,5 +136,9 @@ body.frontmatter {
 
 // This is for the connect icons
 .front-icon {
-	.svg-icon-size(@front-icon-size);
+	.svg-icon-size(@front-icon-size-small);
+	
+	@media (min-width: @screen-sm-min) {
+		.svg-icon-size(@front-icon-size);
+	}
 }

@@ -169,3 +169,37 @@ body {
   border: none;
   max-width: 100%;
 }
+
+// Touch Assist
+@touch-assist:      	darken(@navbar-theme-bg, @theme-border-darker-percentage);
+@touch-assist-current: lighten(@navbar-theme-bg, @theme-border-darker-percentage);
+@touch-assist-padding: 	 6px;
+.sitemap {
+	// If on small screen sizes, add more padding and make the hit-area obvious:
+	@media (max-width: @grid-float-breakpoint) {
+		> li {
+			min-width: 80%;
+		  
+			&.navbar-current > a {
+			  background: @touch-assist-current;
+			  border: thin solid @touch-assist;
+			}
+		}
+		> li > a {
+			display: block;
+			width: 100%;
+
+			padding: @touch-assist-padding;
+			margin: @touch-assist-padding auto;
+			background: @touch-assist;
+			border: thin solid @touch-assist;
+
+			color: @navbar-theme-link;
+			&:hover,
+			&:focus {
+				color: @navbar-theme-hover-link;
+				text-decoration: none;
+			}
+		}
+	}
+}

@@ -20,12 +20,6 @@
 @footer-theme-current-link:      @theme-neutral;
 @footer-theme-current-bg:      	 @theme-primary-lessdark;
 
-// Touch Assist
-@footer-theme-touch-assist:      darken(@navbar-theme-bg, @theme-border-darker-percentage);
-@footer-theme-touch-assist-current: lighten(@navbar-theme-bg, @theme-border-darker-percentage);
-@touch-assist-padding: 	 6px;
-
-
 // Wrapper
 //
 .page-footer {
@@ -71,39 +65,6 @@
 	
 	> li {
 		list-style-type: none;
-	}
-	
-	> li > a {
-		color: @navbar-theme-link;
-		&:hover,
-		&:focus {
-			color: @navbar-theme-hover-link;
-			text-decoration: none;
-		}
-	}
-	
-}
-
-.sitemap {
-	// If on small screen sizes, add more padding and make the hit-area obvious:
-	@media (max-width: @grid-float-breakpoint) {
-		> li {
-			min-width: 80%;
-		  
-			&.navbar-current > a {
-			  background: @footer-theme-touch-assist-current;
-			  border: thin solid @footer-theme-touch-assist;
-			}
-		}
-		> li > a {
-			display: block;
-			width: 100%;
-			
-			padding: @touch-assist-padding;
-			margin: @touch-assist-padding auto;
-			background: @footer-theme-touch-assist;
-		  	border: thin solid @footer-theme-touch-assist;
-		}			
 	}
 }
 
