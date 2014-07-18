@@ -122,10 +122,12 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
 
 // The transformations applied on images to convert them from the source to the export formats.
 // 
-var blogImageTransform = function (im, style) {
+var blogImageTransform = function (im, style, replaceOriginal) {
 	return lazypipe()
 		.pipe(rename, function (path) {
-				path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name);
+				if (!replaceOriginal) {
+					path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name);
+				}
 				path.extname = "." + style.name + path.extname.toLowerCase();
 			})
 		.pipe(imageResize, {
@@ -141,24 +143,37 @@ var blogImageTransform = function (im, style) {
 				use: [pngcrush()]
 			}));
 };
+
+function blogImageStream (im, style, ifProcessed, ifNotProcessed) {
+	var im = transforms.imagemin;
+	var styleNames = im.styles.map(function (e) { return e.name });
+	var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
+
+	return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
+				.pipe(gulpif(styleNamesRegexp,
+						ifProcessed(),
+						ifNotProcessed()
+					))
+				.pipe(gulp.dest(paths.dest));
+}
+
+function blogImageBuild(replaceOriginal){
+	replaceOriginal = typeof replaceOriginal !== 'undefined' ? replaceOriginal : false;
+
+	var im = transforms.imagemin;
+	// Parallel from this
+	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
+	var tasks = im.styles.map(function(style) {
+			return blogImageStream(im, style, gutil.noop, blogImageTransform(im, style, replaceOriginal));
+		});
+
+	return es.concat.apply(null, tasks);
+}
 	
 // Copy all blog images, scaling and optimizing as necessary.
 //styles: [{name: "thumb", max_width: 600, max_height: 400},
 gulp.task('build-blogimages', ['build-copystatic'], function() {
-	var im = transforms.imagemin;
-	var styleNames = im.styles.map(function (e) { return e.name });
-	// Parallel from this
-	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
-	var tasks = im.styles.map(function(style) {
-			return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
-				.pipe(gulpif(new RegExp(".*\.(" + styleNames.join("|") + ")\..+"),
-						gutil.noop(),
-						blogImageTransform(im, style)()
-					))
-				.pipe(gulp.dest(paths.dest));
-		});
-
-	return es.concat.apply(null, tasks);
+	return blogImageBuild();
 });
 
 
