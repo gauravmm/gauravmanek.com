@@ -1,7 +1,7 @@
 name: Gaurav Manek
 markdown: redcarpet
 highlighter: pygments
-description: "An online portfolio and website."
+description: "Online Portfolio and Website."
 url: "http://www.gauravmanek.com"
 
 source:      ./_content

@@ -1,4 +1,6 @@
-<li><a href="/">Home</a></li>
+{% unless include.hidehome %}
+	<li><a href="/">Home</a></li>
+{% endunless %}
 {% assign sorted_pages = site.pages | sort:"innavbar-order" %}
 {% for navpage in sorted_pages %}
 	{% if navpage.innavbar %}

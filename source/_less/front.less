@@ -1,0 +1,77 @@
+//
+// Footer
+// --------------------------------------------------
+
+// Basics
+@front-logo-size:					300px;
+@front-logo-size-small:				150px;
+@front-icon-size:					24px;
+
+@front-theme-text:					@theme-secondary-light;
+@front-theme-hover-link:        	@theme-secondary-dark;
+
+// Touch Assist
+@footer-theme-touch-assist:      darken(@navbar-theme-bg, @theme-border-darker-percentage);
+@footer-theme-touch-assist-current: lighten(@navbar-theme-bg, @theme-border-darker-percentage);
+@touch-assist-padding: 	 6px;
+
+
+// Wrapper
+//
+.front {
+  	position: relative;
+	overflow: auto;
+  	    
+  	&:extend(.clearfix all);
+	
+	h1, h2, h3, h4, h5, h6 {
+		color: @front-theme-text;
+		margin: 0;
+		padding: 0;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		text-align: center;
+	}
+}
+
+.front-text {
+	overflow: hidden;
+	&:extend(.clearfix all);
+	@media (min-width: @screen-sm-min) {
+		margin: @front-logo-size*0.3 auto auto 1em;
+	}
+}
+
+.front-nav {
+	width: 100%;
+	margin-top: @line-height-computed;
+	a {
+		color: @front-theme-text;
+		
+		&:hover,
+		&:selected {
+			color: @front-theme-text;
+			text-decoration: none;
+		}
+	}
+}
+
+.front-connect {
+	margin-top: @line-height-computed;
+}
+
+// This is the site logo
+.front-logo {
+	.svg-icon-size(@front-logo-size-small);
+	
+	@media (min-width: @screen-sm-min) {
+		.svg-icon-size(@front-logo-size);	
+		float: left;
+	}
+}
+
+// This is for the connect icons
+.front-icon {
+	.svg-icon-size(@front-icon-size);
+}
