@@ -7,6 +7,9 @@
 @front-logo-size-small:				150px;
 @front-icon-size:					24px;
 
+@front-background: 					@theme-primary-dark;
+@front-lines:						darken(@theme-primary-dark, @theme-border-darker-percentage);
+
 @front-theme-text:					@theme-secondary-light;
 @front-theme-hover-link:        	@theme-secondary-dark;
 
@@ -16,8 +19,28 @@
 @touch-assist-padding: 	 6px;
 
 
-// Wrapper
-//
+body.frontmatter {
+	overflow: hidden;
+	background: @theme-primary-dark url(../img/bkg.svg) repeat;
+}
+
+.front-wrapper {
+	width: 100%;
+	background: @front-background;
+	
+	@media (min-width: @screen-sm-min) {
+		// Vertically center it
+		
+		position: absolute;
+		top: 50%;
+		height: @front-logo-size;
+		margin-top: -@front-logo-size/2;
+		
+		border-top: 	medium solid @front-lines;
+		border-bottom: 	medium solid @front-lines;
+	}
+}
+
 .front {
   	position: relative;
 	overflow: auto;
