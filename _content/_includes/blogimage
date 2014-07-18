@@ -2,4 +2,4 @@
 {% assign img_ext = include.src | split: '.' | last | prepend: '.' %}
 {% assign img_first = include.src | remove: img_ext %}
 
-<a class="blog-image" href="{{ img_path }}{{ img_first }}.full{{ img_ext }}" ><img src="{{ img_path }}{{ img_first }}.thumb{{ img_ext }}" alt="{{ include.caption }}" /><span>{{ include.caption }}</p></a>
+<a class="blog-image" href="{{ img_path }}{{ img_first }}.full{{ img_ext }}" ><img src="{{ img_path }}{{ img_first }}.thumb{{ img_ext }}" alt="{{ include.caption | escape }}" /><span>{{ include.caption }}</p></a>

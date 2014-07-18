@@ -25,6 +25,7 @@ defaults:
     values:
       layout: "post"
       category: "projects"
+      category: "projects"
 
   -
     scope:
