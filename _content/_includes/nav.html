@@ -1,0 +1,7 @@
+<li><a href="/">Home</a></li>
+{% assign sorted_pages = site.pages | sort:"innavbar-order" %}
+{% for navpage in sorted_pages %}
+	{% if navpage.innavbar %}
+			<li {% if (navpage.path == page.path) or (navpage.postcategory and (page.categories contains navpage.postcategory)) %} class="navbar-current" {%endif%} ><a href="{{ navpage.url }}">{{ navpage.title }}</a></li>
+	{% endif %}
+{% endfor %}

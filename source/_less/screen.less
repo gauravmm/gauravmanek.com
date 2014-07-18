@@ -1,0 +1,141 @@
+// Page background:
+body {
+	background: @theme-primary-dark;
+}
+
+.container-bkg {
+	width: 100%;
+	overflow: hidden;
+	background: @theme-primary-light url(../img/bkg.svg) repeat;
+}
+
+.main-content {
+	// Force to grow to fit content
+	overflow: auto;
+	
+	// Give more space to the top and bottom
+	padding-top: @font-size-h1;
+	padding-bottom: @font-size-h1;
+	
+	// Colors and themes:
+	background: @theme-background;
+	border-left: thin solid @theme-border;
+	border-right: thin solid @theme-border;
+}
+
+
+.page-title {
+	// Force to grow to fit content
+	overflow: auto;
+	
+	// Colors and themes:
+	background: @theme-primary-lessdark;
+	border-bottom: thin solid @theme-primary-dark;
+	
+	h1 {
+		color: @theme-neutral;
+	}
+	
+	h2 {
+		color: @theme-primary-light;
+		font-size: @font-size-h3;
+	}
+	
+	padding-bottom: @font-size-h3;
+	@media (min-width: @grid-float-breakpoint) {
+		h1 {
+			margin-top: @font-size-h1;
+		}
+		h2 {
+			margin-top: @font-size-h3;
+		}
+	}
+}
+
+@scrollspy-padding:				10px;
+@scrollspy-border-hover:		1px;
+@scrollspy-border-current:		2px;
+
+.sidebar-nav {
+	.scrollspy-display {
+		display: none;
+	}
+	
+	&.fixed {
+		position: fixed;
+		top: 0;
+	}
+	
+	ol,
+	ul {
+		.list-unstyled;
+		
+		> li {
+			padding-left: @scrollspy-padding;
+			border-left: 0;
+			
+			a {
+				color: @theme-primary-dark;
+				&:hover {
+					text-decoration: none;
+					cursor: pointer;
+				}
+			}
+			
+			&:hover {
+				padding-left: @scrollspy-padding - @scrollspy-border-hover;
+				border-left: @scrollspy-border-hover solid @theme-primary-dark;
+			}
+			
+			&.scrollspy-current,
+		  	&.navbar-current {
+				padding-left: @scrollspy-padding - @scrollspy-border-current;
+				border-left: @scrollspy-border-current solid @theme-primary-dark;
+			}
+		}
+	}
+	
+	@media (max-width: @screen-sm-max) {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+.page-footer > .container > .row > div {
+	padding-bottom: @line-height-computed;
+}
+
+@postdate-width: 36px;
+.postlink {
+	&:extend(.clearfix all);
+	overflow: auto;
+	margin-bottom: @line-height-computed / 2;
+	margin-left: @line-height-computed / 2;
+	
+	.postdate {
+		display: inline-block;
+		padding: 3px;
+		width: @postdate-width;
+		height: 100%;
+		float: left;
+		
+		:last-child,
+		:first-child {
+			color: @theme-secondary-light;
+		}
+		
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		text-transform: uppercase;
+		text-align: center;
+		background: @theme-primary-lessdark;
+	}
+	
+	.h3,
+	.subtitle {
+		margin-left: 8px;
+	}
+}

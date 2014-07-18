@@ -1,3 +1,19 @@
+# Intermediate images
+*.thumb.*
+*.full.*
+
+# Output
+publish/
+
+# Jekyll
+_site/
+_content/css/*
+_content/js/*
+_content/img/*
+
+# Sublime Text
+*.sublime-workspace
+
 # gEdit temp file
 *~
 
