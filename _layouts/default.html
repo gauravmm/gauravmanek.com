@@ -1,86 +1,56 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}</title>
-    <meta name="description" content="{{ site.description }}" />
-    <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="apple-touch-icon-precomposed" href="favicon-152.png" />
-		<link rel="icon" href="favicon-32.png" />
-		<link href='http://fonts.googleapis.com/css?family=Rokkitt|Open+Sans|Droid+Sans+Mono' rel='stylesheet' type='text/css' />
-		<link rel="stylesheet" href="/css/main.css" />
-	</head>
-	<body>
-		<!--[if lt IE 7]>
-			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
-		<a name="top"></a>
-		<div class="navbar" role="navigation">
-			<div class="container">
-			<a class="navbar-toggle" href="#sitemap">&#9776;</a>
-			<a class="navbar-brand" href="/"><span class="navbar-logo icon-logo">&nbsp;</span><span class="navbar-logo-text">{{ site.name }}</span></a>
-			<ul class="navbar-links">
-				{% include nav.html %}
-			</ul>
+---
+layout: wrapper
+---
+<a name="top"></a>
+<div class="navbar" role="navigation">
+	<div class="container">
+	<a class="navbar-toggle" href="#sitemap">&#9776;</a>
+	<a class="navbar-brand" href="/"><span class="navbar-logo icon-logo">&nbsp;</span><span class="navbar-logo-text">{{ site.name }}</span></a>
+	<ul class="navbar-links">
+		{% include nav.html %}
+	</ul>
+	</div>
+</div>
+<div class="page-title">
+	<div class="container">
+		<h1>{{ page.title }}</h1>
+		{% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
+	</div>
+</div>
+<div class="container-bkg">
+	<div class="container main-content">
+		<div class="row">
+			{{content}}
+		</div>
+	</div>
+</div>
+<div class="page-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				<a name="sitemap"></a>
+				<h3>Sitemap</h3>
+				<ul class="page-footer-links sitemap">
+					{% include nav.html %}
+					<li class="footer-jump-top"><a href="#top">Top &uarr;</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				<h3>Connect</h3>
+				<ul class="page-footer-links connect">
+					<li><a href="http://sg.linkedin.com/in/gauravmanek"><span class="footer-linkedin">&nbsp;</span></a></li>
+					<li><a href="https://github.com/gauravmm"><span class="footer-github">&nbsp;</span></a></li>
+					<li><a href="mailto:gaurav@gauravmanek.com"><span class="footer-mail">&nbsp;</span></a></li>
+					<li><a href="/feed.xml"><span class="footer-rss">&nbsp;</span></a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-3">
+				<div class="page-footer-brand"><span class="page-footer-logo icon-logo">&nbsp;</span></div>
 			</div>
 		</div>
-		<div class="page-title">
-			<div class="container">
-				<h1>{{ page.title }}</h1>
-				{% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
-			</div>
+		<div class="row">
+			<div class="col-xs-12 footer-copyright">&copy; Gaurav Manek 2014. <a href="https://github.com/gauravmm/gauravmanek.com">Get the source code.</a></div>
 		</div>
-		<div class="container-bkg">
-			<div class="container main-content">
-				<div class="row">
-					{{content}}
-				</div>
-			</div>
-		</div>
-		<div class="page-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-3">
-						<a name="sitemap"></a>
-						<h3>Sitemap</h3>
-						<ul class="page-footer-links sitemap">
-							{% include nav.html %}
-							<li class="footer-jump-top"><a href="#top">Top &uarr;</a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-4 col-md-3">
-						<h3>Connect</h3>
-						<ul class="page-footer-links connect">
-							<li><a href="http://sg.linkedin.com/in/gauravmanek"><span class="footer-linkedin">&nbsp;</span></a></li>
-							<li><a href="https://github.com/gauravmm"><span class="footer-github">&nbsp;</span></a></li>
-							<li><a href="mailto:gaurav@gauravmanek.com"><span class="footer-mail">&nbsp;</span></a></li>
-							<li><a href="/feed.xml"><span class="footer-rss">&nbsp;</span></a></li>
-						</ul>
-					</div>
-					<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-3">
-						<div class="page-footer-brand"><span class="page-footer-logo icon-logo">&nbsp;</span></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 footer-copyright">&copy; Gaurav Manek 2014. <a href="https://github.com/gauravmm/gauravmanek.com">Get the source code.</a></div>
-				</div>
-			</div>
-		</div>
-		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
-		<script src="/js/main.js"></script>
-
-		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-		<script>
-			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-			e.src='//www.google-analytics.com/analytics.js';
-			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-			ga('create','UA-XXXXX-X');ga('send','pageview');
-		</script>
-	</body>
-</html>
+	</div>
+</div>
+<script src="/js/main.js"></script>
