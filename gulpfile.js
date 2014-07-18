@@ -141,7 +141,6 @@ var blogImageTransform = function (im, style) {
 		.pipe(gulpif, /.*\.png/, gutil.noop(), imagemin({
 				progressive: true,
 				svgoPlugins: [{removeViewBox: false}],
-				use: [pngcrush()]
 			}));
 };
 
@@ -166,9 +165,7 @@ function blogImageBuild(){
 			return blogImageStream(gutil.noop, blogImageTransform(im, style));
 		});
 
-	var rv = es.concat.apply(null, tasks);
-
-	return rv
+	return es.concat.apply(null, tasks)
 		.pipe(gulpIgnore.include(styleNamesRegexp)) // Only keep the processed files
 		.pipe(gulp.dest(paths.content))  // Pipe the output to the content folder
 		.pipe(rename(function (path) {

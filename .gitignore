@@ -1,3 +1,7 @@
+# Intermediate images
+*.thumb.*
+*.full.*
+
 # Output
 publish/
 
