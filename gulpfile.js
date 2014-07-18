@@ -144,7 +144,7 @@ var blogImageTransform = function (im, style, replaceOriginal) {
 			}));
 };
 
-function blogImageStream (im, style, ifProcessed, ifNotProcessed) {
+function blogImageStream (im, ifProcessed, ifNotProcessed) {
 	var im = transforms.imagemin;
 	var styleNames = im.styles.map(function (e) { return e.name });
 	var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
@@ -154,7 +154,6 @@ function blogImageStream (im, style, ifProcessed, ifNotProcessed) {
 						ifProcessed(),
 						ifNotProcessed()
 					))
-				.pipe(gulp.dest(paths.dest));
 }
 
 function blogImageBuild(replaceOriginal){
@@ -164,10 +163,21 @@ function blogImageBuild(replaceOriginal){
 	// Parallel from this
 	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
 	var tasks = im.styles.map(function(style) {
-			return blogImageStream(im, style, gutil.noop, blogImageTransform(im, style, replaceOriginal));
+			return blogImageStream(im, gutil.noop, blogImageTransform(im, style, replaceOriginal));
 		});
 
-	return es.concat.apply(null, tasks);
+	var rv = es.concat.apply(null, tasks);
+
+	if (replaceOriginal) {
+		// Delete the originals.
+		blogImageStream(im, rimraf, gutil.noop);
+
+		// Pipe the output to the content folder
+		return rv.pipe(gulp.dest(paths.content));
+	} else {
+		// Pipe the output to the destination folder
+		return rv.pipe(gulp.dest(paths.dest));
+	}
 }
 	
 // Copy all blog images, scaling and optimizing as necessary.
@@ -182,6 +192,14 @@ gulp.task('build-blogimages', ['build-copystatic'], function() {
 gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin', 'build-blogimages'], function(){
 });
 
+
+//
+//// Utility build targets
+//
+
+gulp.task('blogimages', [], function() {
+	return blogImageBuild(true);
+});
 
 
 //
