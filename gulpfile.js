@@ -20,6 +20,7 @@ var gutil = require('gulp-util');           // Utitlites [noop(), ...]
 var debug = require('gulp-debug');          // debug
 var es = require('event-stream');           // For parallel processing of streams
 var lazypipe = require('lazypipe');			// For abstracting over streams
+var include = require('gulp-ignore').include; // For only copying over certain images.
 
 
 
@@ -144,11 +145,13 @@ var blogImageTransform = function (im, style, replaceOriginal) {
 			}));
 };
 
-function blogImageStream (im, ifProcessed, ifNotProcessed) {
-	var im = transforms.imagemin;
-	var styleNames = im.styles.map(function (e) { return e.name });
-	var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
 
+var im = transforms.imagemin;
+var styleNames = im.styles.map(function (e) { return e.name });
+var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
+
+
+function blogImageStream (im, ifProcessed, ifNotProcessed) {
 	return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
 				.pipe(gulpif(styleNamesRegexp,
 						ifProcessed(),
@@ -156,10 +159,7 @@ function blogImageStream (im, ifProcessed, ifNotProcessed) {
 					))
 }
 
-function blogImageBuild(replaceOriginal){
-	replaceOriginal = typeof replaceOriginal !== 'undefined' ? replaceOriginal : false;
-
-	var im = transforms.imagemin;
+function blogImageBuild(){
 	// Parallel from this
 	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
 	var tasks = im.styles.map(function(style) {
@@ -168,16 +168,9 @@ function blogImageBuild(replaceOriginal){
 
 	var rv = es.concat.apply(null, tasks);
 
-	if (replaceOriginal) {
-		// Delete the originals.
-		blogImageStream(im, rimraf, gutil.noop);
-
-		// Pipe the output to the content folder
-		return rv.pipe(gulp.dest(paths.content));
-	} else {
-		// Pipe the output to the destination folder
-		return rv.pipe(gulp.dest(paths.dest));
-	}
+	return rv
+		.pipe(include(styleNamesRegexp)) // Only keep
+		.pipe(gulp.dest(paths.content)); // Pipe the output to the content folder
 }
 	
 // Copy all blog images, scaling and optimizing as necessary.
@@ -198,7 +191,7 @@ gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 
 //
 
 gulp.task('blogimages', [], function() {
-	return blogImageBuild(true);
+	return blogImageBuild();
 });
 
 
