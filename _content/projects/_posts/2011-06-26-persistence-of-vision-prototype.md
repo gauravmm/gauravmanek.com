@@ -7,7 +7,7 @@ Recently, I saw an impressive business card how-to that uses Persistence of Visi
 
 I was considering the plausibility of a version of this card that can display the text and graphics in color. The basic mechanism (Persistence of Vision) is still the same, but the new card uses either 3-color RGB SMD LEDs (which are prohibitively expensive), or three rows of LEDs (red, green and blue each get their own row).
 
-{% include blogimage src="single_LED_row.png" caption="Normal PoV Card" %}
+{% include blogimage src="single_LED_row.png" %}
 
 # Row Alignment
 

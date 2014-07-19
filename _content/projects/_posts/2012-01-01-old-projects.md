@@ -14,6 +14,14 @@ Technical Information: There are two display methods available. index_Canvas.htm
 
 This work is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License. The source code is available here.
 
+## Facebook-style Like Stamp
+
+Take your Facebook addiction to the next level by "Like"-ing things in real life. 
+
+There are two templates available, one "like" and one "dislike" stamp. Just download the files and send them for printing at your favourite print shop.
+
+{% include blogimage src="DSC_3537.png" caption="Click to Download" href="/download/FBLikeStamp.zip" %}
+
 ## pmOAS
 
 {% include blogimage src="pmOAS.png" caption="pmOAS Demo" %}
