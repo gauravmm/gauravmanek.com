@@ -11,7 +11,7 @@
 @footer-theme-bg:                @theme-primary-dark;
 @footer-theme-border:            darken(@footer-theme-bg, @theme-border-darker-percentage);
 @footer-theme-text:							 @theme-secondary-light;
-@footer-theme-link:              @theme-primary-light;
+@footer-theme-link:              @theme-neutral;
 
 // Hover
 @footer-theme-hover-link:        @theme-secondary-dark;
@@ -62,9 +62,12 @@
 	padding: 0;
   &:extend(.clearfix all);
   -webkit-overflow-scrolling: touch;
-	
 	> li {
 		list-style-type: none;
+
+		> a {
+			color: @footer-theme-link;
+		}
 	}
 }
 
