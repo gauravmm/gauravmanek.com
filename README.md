@@ -31,6 +31,8 @@ This is released under the [The MIT License](https://github.com/gauravmm/gauravm
 
 Gone are the days where this section would be "A cheap web host that supports PHP and hasn't turned on mod_security." This requires:
 
+Package | What it is
+------- | ----------
 `nodejs` | [Node.js](http://nodejs.org/). May be called `node`.
 `npm` | [Node Packaged Modules](https://www.npmjs.org/)
 `rubygems` | [RubyGems](https://rubygems.org/)
