@@ -36,6 +36,7 @@ Package | What it is
 `nodejs` | [Node.js](http://nodejs.org/). May be called `node`.
 `npm` | [Node Packaged Modules](https://www.npmjs.org/)
 `rubygems` | [RubyGems](https://rubygems.org/)
+`imagemagick` | [ImageMagick](http://www.imagemagick.org/)
 
 ### Procedure
 
