@@ -6,7 +6,10 @@ body {
 .container-bkg {
 	width: 100%;
 	overflow: hidden;
-	background: @theme-primary-light url(../img/bkg.svg) repeat;
+	
+	@media (min-width: @screen-sm-min) {
+		background: @theme-primary-light url(../img/bkg.svg) repeat;
+	}
 }
 
 .main-content {

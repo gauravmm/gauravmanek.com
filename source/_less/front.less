@@ -25,7 +25,10 @@
 
 body.frontmatter {
 	overflow: hidden;
-	background: @theme-primary-dark url(../img/bkg.svg) repeat;
+	background: @theme-primary-dark;
+	@media (min-width: @screen-sm-min) {
+		background: @theme-primary-dark url(../img/bkg.svg) repeat;
+	}
 }
 
 .front-wrapper {
