@@ -11,6 +11,9 @@ layouts:     ./_layouts
 include:     ['.htaccess']
 exclude:     []
 
+redcarpet:
+  extensions: ["tables"]
+
 defaults:
   -
     scope:
