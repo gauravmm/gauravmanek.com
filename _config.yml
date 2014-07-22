@@ -12,7 +12,7 @@ include:     ['.htaccess']
 exclude:     []
 
 redcarpet:
-  extensions: ["tables"]
+  extensions: ["tables", "no_intra_emphasis"]
 
 defaults:
   -
@@ -27,7 +27,6 @@ defaults:
       path: "/projects"
     values:
       layout: "post"
-      category: "projects"
       category: "projects"
 
   -

@@ -9,3 +9,4 @@ Documentation and source code is available [on github](https://github.com/gaurav
 - [Building with Gulp]({% post_url 2014-07-20-building-with-gulp %})
 - [Deploying static sites]({% post_url 2014-07-25-deploying-sites %})
 - [Making websites faster]({% post_url 2014-07-27-faster-websites %})
+- [Templating with Jekyll]({% post_url 2014-07-16-templating-with-jeykll %})
