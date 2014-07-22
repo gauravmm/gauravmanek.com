@@ -32,7 +32,7 @@ var fs = require('fs');						// To check if images already exist before converti
 var paths = {
 	source: 'source/',  // The design source
 	content: '_content/',
-		ignore: '!**/_*{,/**}',    // Ignore all things that have underscores in them
+	ignore: '!**/_*{,/**}',    // Ignore all things that have underscores in them
 	source_jekyll: '.', // The location of the _config.yml file
 	dest_jekyll: '_site/', // The location of the _config.yml file
 	glob_jekyll_minify_regex: /.*\.html/, // All the jekyll files to minify
