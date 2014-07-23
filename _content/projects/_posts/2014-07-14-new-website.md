@@ -7,6 +7,8 @@ This website has been redesigned from the ground-up, after lying dormant for man
 Documentation and source code is available [on github](https://github.com/gauravmm/gauravmanek.com/). I have also written about some of the tools and techniques that I used to build this site:
 
 - [Building with Gulp]({% post_url 2014-07-20-building-with-gulp %})
+{% comment %}
 - [Deploying static sites]({% post_url 2014-07-25-deploying-sites %})
+{% endcomment %}
 - [Making websites faster]({% post_url 2014-07-27-faster-websites %})
 - [Templating with Jekyll]({% post_url 2014-07-16-templating-with-jeykll %})
