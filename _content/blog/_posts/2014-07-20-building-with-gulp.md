@@ -157,7 +157,7 @@ gauravmanek.com/_content/blog$ find . -type f
 ./_posts/_2014-07-20-building-with-gulp/dep_graph.png
 {% endhighlight %}
 
-The folder names have an underscore prepended (so that Jekyll does not process the contents) and have no extension. Running `gulp` automatically generates copies of the file. The types of files generated can be set in [`transforms.imagemin`](https://github.com/gauravmm/gauravmanek.com/blob/5303c881ea3365f1e11fb6b9a29181bfb49870c3/gulpfile.js#L47). For this website, a small thumbnail and a larger full copy are produced, as shown here:
+The folder names have an underscore at the front (so that Jekyll does not process the contents) and have no extension. Running `gulp` automatically generates copies of the file. The types of files generated can be set in [`transforms.imagemin`](https://github.com/gauravmm/gauravmanek.com/blob/5303c881ea3365f1e11fb6b9a29181bfb49870c3/gulpfile.js#L47). For this website, a small thumbnail and a larger full copy are produced, as shown here:
 
 {% highlight bash %}
 gauravmanek.com$ gulp

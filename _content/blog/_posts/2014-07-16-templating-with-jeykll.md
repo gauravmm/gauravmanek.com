@@ -11,7 +11,7 @@ When designing this website, the need for a statically generated menu-bar arose.
   * while being able to order items.
  * Highlight the current page
  * If the current page is part of either "projects" or "blog", highlight the appropriate header.
- * Toggle showing a link to the frontmatter.
+ * Toggle showing a link to the index page.
 
 The last is easily achieved using `unless` tags:
 
