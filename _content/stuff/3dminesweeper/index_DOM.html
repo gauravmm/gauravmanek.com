@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" href="main.css" />
+<script type="text/javascript" src="game.js"></script>
+
+<!-- Display CSS & JS -->
+<link rel="stylesheet" href="display_table.css" />
+<script type="text/javascript" src="display_table.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>3D Minesweeper</title>
+</head>
+
+<body onload="gameStart();">
+<div id="mainDiv"></div>
+<div id="holder">
+	<div id="pointsDiv">
+    	Mines Flagged:<br /><span id="stats_flagged">0/?</span><br />
+        Empty Cleared:<br /><span id="stats_cleared">0%</span><br />
+        Time:<br /><span id="stats_time">0s</span><br />
+        <button onclick="game_initialize(); display_clickHandleZSelect(0)">Reset Game</button><br />
+        <button onclick="display_config()">Configure Game</button></div><br />
+	<div id="displayDiv">&nbsp;</div>
+	<div id="Instructions">Play 3D Minesweeper!<br />Click to reveal a square. Shift-click to flag a potential mine.</div>
+</div>
+</body>
+</html>

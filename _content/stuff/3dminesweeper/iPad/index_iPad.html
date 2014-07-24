@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" manifest="cache_manifest_iPad.php">
+<head>
+<!-- Apple-specific markup -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black"> <!-- black-translucent is not supporteb by the iPad as of OS 4.2.*; -->
+<meta name = "viewport" content = "initial-scale = 1.0, user-scalable = no">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<!-- <link rel="apple-touch-startup-image" href="startup.png" /> 1008*768 image. -->
+
+<link rel="stylesheet" href="main.css" />
+<link rel="stylesheet" href="display_iPad.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Minesweeper3D</title>
+</head>
+
+<body onload="gameStart();">
+<div id="mainDiv"></div>
+<div id="holder">
+	<div id="pointsDiv">
+    	&nbsp;<br />
+    	Mines Flagged:<br /><span id="stats_flagged">0/?</span><br />
+        Empty Cleared:<br /><span id="stats_cleared">0%</span><br />
+        Time:<br /><span id="stats_time">0s</span></div>
+	<div id="displayDiv">&nbsp;</div>
+	<div id="Instructions">Play 3D Minesweeper!<br />Click to reveal a square. Shift-click to flag a potential mine.
+		<button id="button_anagl" onclick="toggleAnaglyph()">Toggle Anaglyph</button>
+		<button id="button_reset" onclick="game_initialize(); display_clickHandleZSelect(0)">Reset Game</button>
+		<button id="butto_config" onclick="display_config()">Configure Game</button>
+	</div>
+</div>
+<div id="update_date">&nbsp;</div>
+<script type="text/javascript" src="date.php"></script>
+<script type="text/javascript" src="game_v2.js"></script>
+<script type="text/javascript" src="display_canvas_iPad.js"></script>
+<script type="text/javascript" src="touch.js"></script>
+</body>
+</html>
