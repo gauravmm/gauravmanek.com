@@ -14,7 +14,7 @@ Capturing images in stereo with two Nikon D7000s mounted on a DIY rig. Pairs of 
 # 3D Minesweeper
 Its Minesweeper! In 3D!
 
-Available to anyone who bothers to update their browsers, this takes advantage of the new `<canvas>` tag to render an Anaglyph-3D (using red-cyan glasses) version of minesweeper. Play it [here](/stuff/3dminesweeper/).
+Available to anyone who bothers to update their browsers, this takes advantage of the new `<canvas>` tag to render an Anaglyph-3D (using red-cyan glasses) version of minesweeper. Play it [here](/stuff/3dminesweeper/index_Canvas.html).
 
 Technical Information: There are two display methods available. index_Canvas.html uses the canvas tag, while index_DOM.html uses DOM manipulation (specifically, a JavaScript generated table). Both files make use of the same code in game.js.
 
