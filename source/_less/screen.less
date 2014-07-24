@@ -166,6 +166,23 @@ body {
   }
 }
 
+table {
+	margin: @line-height-computed 0;
+	width: 100%;
+
+	thead {
+		border-bottom: thin solid @theme-primary-dark;
+	}
+
+	td {
+		padding: 0.25em;
+	}
+
+	tr:nth-child(even) {
+		background-color: darken(@theme-secondary-light, @theme-border-darker-percentage);
+	}
+}
+
 .youtube {
   border: none;
   max-width: 100%;
