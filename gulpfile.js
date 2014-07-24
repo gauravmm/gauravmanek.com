@@ -44,7 +44,7 @@ var transforms = {
 	lessc: {from: ["_less/main.less"], to: "css/"},
 	js: {from: ["_js/*"], to: "js/"},
 	cssmin: [{files: ["css/main.css"]}],
-	imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", styles: [{name: "thumb", max_width: 600, max_height: 300}, {name: "full", max_width: 2048, max_height: 2048}]}
+	imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", styles: [{name: "thumb", max_width: 600, max_height: 300}, {name: "full", max_width: 1600, max_height: 1600}]}
 };
 
 
