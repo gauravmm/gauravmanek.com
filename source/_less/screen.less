@@ -109,37 +109,35 @@ body {
 }
 
 @postdate-width: 36px;
+@postdate-margin: 8px;
 .postlink {
 	&:extend(.clearfix all);
 	overflow: auto;
-	margin-bottom: @line-height-computed / 2;
+	margin-bottom: @line-height-computed;
 	margin-left: @line-height-computed / 2;
-	
+	padding-left: @postdate-width + @postdate-margin;
+
 	.postdate {
-		display: inline-block;
 		padding: 3px;
 		width: @postdate-width;
 		height: 100%;
 		float: left;
 		
-		:last-child,
-		:first-child {
-			color: @theme-secondary-light;
-		}
-		
 		* {
 			margin: 0;
 			padding: 0;
+			color: @theme-secondary-light;
 		}
 		
 		text-transform: uppercase;
 		text-align: center;
 		background: @theme-primary-lessdark;
+
+		margin-left: -(@postdate-width + @postdate-margin);
 	}
-	
-	.h3,
-	.subtitle {
-		margin-left: 8px;
+
+	div {
+		margin: 0;
 	}
 }
 
