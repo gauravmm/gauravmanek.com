@@ -151,7 +151,7 @@ var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
 
 
 function blogImageStream (ifProcessed, ifNotProcessed) {
-	return gulp.src(paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", { base: paths.content })
+	return gulp.src([paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", "!**/*.xcf"], { base: paths.content })
 				.pipe(gulpif(styleNamesRegexp,
 						ifProcessed(),
 						ifNotProcessed()
