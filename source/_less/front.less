@@ -1,0 +1,147 @@
+//
+// Footer
+// --------------------------------------------------
+
+// Basics
+@front-logo-size:					300px;
+@front-logo-size-small:				150px;
+@front-icon-size:					24px;
+@front-icon-size-small:				36px;
+
+@frac-m-pos: 0.3;
+
+@front-background: 					@theme-primary-dark;
+@front-lines:						darken(@theme-primary-dark, @theme-border-darker-percentage);
+@front-lines-thick:					3px;
+
+@front-theme-text:					@theme-secondary-light;
+@front-theme-hover-link:        	@theme-secondary-light;
+@front-theme-hover-background:		@front-lines;
+@front-theme-hover-line:			@front-lines;
+
+@front-menu-padding: 				5px;
+@front-menu-margin: 				1em;
+
+
+body.frontmatter {
+	overflow: hidden;
+	background: @theme-primary-dark;
+	@media (min-width: @screen-sm-min) {
+		background: @theme-primary-dark url(../img/bkg.svg) repeat;
+	}
+}
+
+.front-wrapper {
+	width: 100%;
+	
+	@media (min-width: @screen-sm-min) {
+		// Vertically center it
+		position: absolute;
+		top: 50%;
+		height: @front-logo-size + 2 * @front-lines-thick;
+		margin-top: -@front-logo-size/2 - @front-lines-thick;
+	}
+}
+
+.front-bar {
+	display: none;
+	
+	@media (min-width: @screen-sm-min) {
+		display: block;
+		width: 50%;
+		
+		position: absolute;
+		left: 50%;
+	}
+}
+
+.front-fill {
+	background: @front-background;
+	@media (min-width: @screen-sm-min) {
+		height: 100%;
+		border: medium solid @front-lines;
+		border-right: none;
+	}
+}
+
+.front {
+  	position: relative;
+	overflow: auto;
+	&:extend(.clearfix all);
+	
+	h1, h2, h3, h4, h5, h6 {
+		color: @front-theme-text;
+		margin: 0;
+		padding: 0;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		text-align: center;
+	}
+}
+
+.front-text > * {
+	margin-bottom: @line-height-computed;
+}
+
+@media (min-width: @screen-sm-min) {
+	.front-text {
+		position: relative;
+		overflow: hidden;
+		
+		height: @front-logo-size * (1 - @frac-m-pos);
+		margin: @front-logo-size*@frac-m-pos auto auto 0;
+		padding-left: 0.5em;
+	}
+	
+	.front-connect {
+		position: absolute;
+		bottom: @front-logo-size*0.1;
+	}
+
+	.front-nav {
+		width: 100%;
+		margin-top: @line-height-computed;
+		margin-left: -@front-menu-padding;
+	}
+	
+	.front-nav,
+	.front-connect {	
+		li {
+			padding: 0;
+			margin-right: @front-menu-margin;
+		}
+		
+		a {
+			display: block;
+			color: @front-theme-text;
+			padding: @front-menu-padding;
+			border: thin solid transparent;
+			&:hover {
+				color: @front-theme-hover-link;
+				background: @front-theme-hover-background;
+				border: thin solid @front-theme-hover-line;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+// This is the site logo
+.front-logo {
+	.svg-icon-size(@front-logo-size-small);
+	
+	@media (min-width: @screen-sm-min) {
+		.svg-icon-size(@front-logo-size);	
+		float: left;
+	}
+}
+
+// This is for the connect icons
+.front-icon {
+	.svg-icon-size(@front-icon-size-small);
+	
+	@media (min-width: @screen-sm-min) {
+		.svg-icon-size(@front-icon-size);
+	}
+}

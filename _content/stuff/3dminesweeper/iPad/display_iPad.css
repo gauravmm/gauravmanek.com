@@ -1,0 +1,99 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+#displayDiv div {
+	text-align: right;
+	padding: 5px;
+	position: absolute;
+}
+#displayDiv .selected {
+	background-color:#FFF;
+	color: #000;
+	border: #333 solid thin;
+}
+#displayDiv .unselected {
+	background-color:#666;
+	color: #FFF;
+	border: #FFF solid thin;
+	cursor: pointer;
+}
+
+#pointsDiv span {
+	font-size:36px;
+}
+
+#mainDiv {
+	width: 728px;
+	height: 728px;
+	position: absolute;
+	
+	top: 10px;
+	left: 10px;
+}
+#holder {
+	position: absolute;
+	text-align: center;
+}
+#displayDiv {
+	position:relative;
+}
+button {
+	display:block;
+	margin: 12px auto;
+    background: #2C2C2C;
+    
+	width: 200px;
+    padding: 9px;
+    letter-spacing: 1px;
+    border: none;
+    color: #FFF;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-appearance: none;
+}
+button.on {
+	background: -webkit-gradient(linear, left top, right top, from(#2C2C2C), color-stop(0.1, #2C2C2C), color-stop(0.9, #2C2C2C), color-stop(0.9, #000), color-stop(0.91, #000), color-stop(0.91, #3F3), to(#3F3));
+}
+button.off {
+	background: -webkit-gradient(linear, left top, right top, from(#2C2C2C), color-stop(0.1, #2C2C2C), color-stop(0.9, #2C2C2C), color-stop(0.9, #000), color-stop(0.91, #000), color-stop(0.91, #F33), to(#F33));
+}
+
+#update_date {
+	display:block;
+	
+	position:absolute;
+	bottom: 2px;
+	right: 2px;
+	font-size: 9px;
+	color: #CCC;
+}
+
+#pointsDiv, #displayDiv, #Instructions {display: inline-block; width: 232px; height: 232px; margin: 4px; position:absolute;}
+
+#homescreen {
+	position: absolute;
+	left: 190px;
+	top: 0px;
+}
+
+/* Landscape mode */
+#holder {
+	top: 0px;
+	left: 748px;
+}
+#pointsDiv {left:0; top:10px; }
+#displayDiv {left:0; top:260px; }
+#Instructions {left:0; top:510px;}
+
+@media only screen and (orientation:portrait){
+	/* portrait mode */
+	#holder {
+		left: 0;
+		top: 748px;
+	}
+	#pointsDiv {top:0; left:0;}
+	#displayDiv {top:0; left:250px;}
+	#Instructions {top:0; left:500px;}
+}
