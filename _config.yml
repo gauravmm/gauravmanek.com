@@ -1,13 +1,13 @@
 name: Gaurav Manek
 markdown: redcarpet
-highlighter: pygments
+highlighter: rouge
 description: "Online Portfolio and Website."
 url: "http://gauravmanek.com"
 
 source:      ./_content
 destination: ./_site
-plugins:     ./_plugins
-layouts:     ./_layouts
+plugins_dir: ./_plugins
+layouts_dir: ./_layouts
 include:     ['.htaccess']
 exclude:     []
 

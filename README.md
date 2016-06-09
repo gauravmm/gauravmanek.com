@@ -44,7 +44,7 @@ Package | What it is
 2. `git clone https://github.com/gauravmm/gauravmanek.com.git`
 3. Run `npm install` to automatically install other dependencies. This will take a while.
 4. Install [gulp](http://gulpjs.com/) globally with `sudo npm install -g gulp`
-5. Install Jekyll via RubyGems with `gem install jekyll`
+5. Install Ruby dependencies via RubyGems with `sudo gem install jekyll redcarpet`
 
 ## Usage
 
