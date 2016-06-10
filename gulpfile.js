@@ -9,7 +9,7 @@ var htmlmin = require('gulp-htmlmin');      // Minimize HTML
 var uglify = require('gulp-uglify');        // JS Processing
 var less = require('gulp-less');            // Less
 var uncss = require('gulp-uncss');          // Remove unused CSS
-var minifyCSS = require('gulp-minify-css'); // Minify CSS
+var cleanCSS = require('gulp-clean-css');   // Minify CSS
 var glob = require('glob');                 // Used to list all HTML files to pass to the CSS minifier
 var rename = require('gulp-rename');        // Used to modify the path of blog images.
 var imagemin = require('gulp-imagemin');    // Image minification
@@ -109,7 +109,7 @@ gulp.task('build-lessc', ['build-copystatic', 'build-jekyll'], function() {
 						html: glob.sync(paths.dest + "**/*.html"),
 						ignore: [/\.scrollspy\-(.*)/, ".sidebar-nav.fixed"]
 					}))
-		.pipe(minifyCSS({noRebase:true, keepSpecialComments:0}))
+		.pipe(cleanCSS({rebase:false, keepSpecialComments:0}))
 		.pipe(gulp.dest(paths.dest + transforms.lessc.to));
 });
 
@@ -136,12 +136,18 @@ var blogImageTransform = function (im, style) {
 				height: style.max_height,
 				imageMagick: true
 			})
+		/*
 		// Workaround to prevent optipng bug in imagemin
 		// https://github.com/google/web-starter-kit/issues/279
 		.pipe(gulpif, /.*\.png/, gutil.noop(), imagemin({
 				progressive: true,
 				svgoPlugins: [{removeViewBox: false}],
 			}));
+			*/
+		.pipe(imagemin, {
+				progressive: true,
+				svgoPlugins: [{removeViewBox: false}],
+			});
 };
 
 
