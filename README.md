@@ -52,6 +52,5 @@ Package | What it is
 
 ### Known Issues
 
-- [ ] PNGCrush [has been disabled](https://github.com/gauravmm/gauravmanek.com/blob/6fe79c97c6c60d5b6c19ba198eda0d42d804eec5/gulpfile.js#L139-L144). This is due to a [known bug](https://github.com/google/web-starter-kit/issues/279) in optipng on Ubuntu 14.04.
 - [ ] When building blog images, images that already exist are written again. Since these images are not regenerated, the performance penalty is small. The fix would be to copy the stream and filter the files before writing them, in [this place](https://github.com/gauravmm/gauravmanek.com/blob/6fe79c97c6c60d5b6c19ba198eda0d42d804eec5/gulpfile.js#L170).2
 - [ ] Nonexistent error handling.
