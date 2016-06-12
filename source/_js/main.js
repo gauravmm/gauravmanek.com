@@ -14,13 +14,16 @@ $(document).ready(function () {
 	$(window).scroll(function () {
 		if ($(this).scrollTop() > domFixTo.offset().top) {
 			if (!isFixed) {
+				var w = domEltFix.width();
 				domEltFix.addClass(cssFix);
 				isFixed = true;
+				domEltFix.css('width', w + "px");
 			}
 		} else {
 			if (isFixed) {
 				domEltFix.removeClass(cssFix);
 				isFixed = false;
+				domEltFix.css('width', 'auto');
 			}
 		}
 	});
