@@ -1,0 +1,7 @@
+{% assign img_path = page.path | replace: '/_posts/', '/img/' | remove: '.md' | remove: '.markdown' | append: '/' | prepend: '/' %}
+<p class="blog-image">
+	<video preload="auto" autoplay="autoplay" loop="loop">
+    	<source src="{{ img_path }}{{ include.src }}" type="video/webm"></source>
+	</video>
+	<span>{{ include.caption }}</span>
+</p>
