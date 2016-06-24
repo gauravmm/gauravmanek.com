@@ -1,6 +1,7 @@
 ---
 title: Incrementally Identifying Objects from Referring Expressions using Spatial Object Models
 subtitle: Brown Honors Thesis
+link: https://github.com/gauravmm/Brown-Honors-Thesis/releases
 ---
 
 While at Brown University, I worked in [Dr. Stefanie Tellex's](http://cs.brown.edu/~stefie10/) [Humans to Robots laboratory](http://h2r.cs.brown.edu/) for two years, eventually writing my [honors thesis on parsing prepositional statements incrementally](https://github.com/gauravmm/Brown-Honors-Thesis/releases).
