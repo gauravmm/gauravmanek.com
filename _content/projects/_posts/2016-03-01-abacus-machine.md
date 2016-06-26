@@ -15,7 +15,7 @@ While in Brown, I was introduced to these machines in a class taught by [Prof. R
   - Runtime analysis detects recursion (which is not permitted by the abacus machine model), and loops without exit conditions.
   - A debugger with the ability to:
     - step into, through, over, and out of functions,
-    - halt execution at user-set breakpoints, and --
+    - halt execution at user-set breakpoints, and ---
     - inspect (and change!) the current stack frame.
   - A compiler that can take a set of functions, each its own abacus machine, and compiles it down to a single abacus machine with no dependencies. The ability to reduce any program without recursion into a single program with a finite number of states is an important theoretical property, and this compiler provides constructive proof of that property.
   - [Graphviz](http://www.webgraphviz.com/) output.
