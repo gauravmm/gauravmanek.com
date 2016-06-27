@@ -1,6 +1,6 @@
 ---
 title: Step Planning for Hexapods
-subtitle: Designing a stepping model for the hexapod motion planner.
+subtitle: Taking first steps in motion planning.
 link: https://github.com/gauravmm/Hexapod-IK
 ---
 
@@ -10,7 +10,7 @@ I have been developing a hexapod in my free time in order to teach myself the ba
 
 At this point in the development, I have access to the geometry of the hexapod, and can get and set the angle of each joint. I calculate forward and inverse kinematics of all six legs, and find the position of any joint in the hexapod relative to the hexapod, or relative to the world.
 
-Here's the final product, so you have some idea of what I was working towards:
+__Update__: Here's the final product, so you have some idea of what I was working towards:
 
 {% include youtube id="cYUKvpEEngA" %}
 
@@ -78,29 +78,38 @@ That's exactly what we do in this implementation. We have a heuristic which is c
 
 # Gait and Phases
 
-We want to keep careful track of when each of our legs are up or down so that the hexapod is always balanced.
+We want to keep careful track of when each of our legs are up or down so that the hexapod is always balanced. The typical way of doing this is to have a predetermined sequence of legs moving up and down. The advantage of this simple system is that we don't need to prepare a physics model or keep track of the balance of the hexapod. That's a pretty compelling advantage, and so we went with phase-based models. Here are the three different gaits, for your edification:
 
 {% include webm src="top-down.webm" caption="Three different gaits. The red circle indicates a leg that is not touching the ground."%}
 
+All these gaits work on the same principle: legs that are grouped raise and lower together, and are said to be 'in phase'. Each phase is allotted some time in 'leg-up' mode in turn, and only one phase may be in 'leg-up' mode at any one point in time.
 
+There are two main considerations when selecting a gait:
+
+  1. Gaits with fewer phases require more torque to maintain. In the simplest two-phase gait, three legs are supporting the hexapod at any one point in time, while in the six-phase gait, the load is shared across five legs. A correspondingly stronger motor is required to maintain the two-phase gait.
+  2. Gaits with more phases move more slowly. In the six-phase gait, each leg remains down for five-sixths of a cycle. A two-phase gait, a leg only remains down for half a cycle. Given a particular number of cycles per second, the the length of the stride is the chief limitation in selecting the walking speed. For a stride of length `x`mm, the two-phase gait may travel up to `2x`mm, but the six-phase gait is limited to `6x/5`mm.
 
 # Putting It All Together
 
-Here's the general view of how a single leg takes a step:
+By now we have an idea of how each part of the motion planning works.
+
+Here's the general view of how a single leg takes a step. While this is happening, the `hexapod` frame is moving in the `world` frame:
  
   1. Move leg to closest point in `world`.
   2. Record this point.
   3. Given new position of body in `world`, perform IK to keep leg in same point.
-  4. Repeat previous step until time to raise leg.
+  4. Repeat previous step until the gait timer says its time to raise the leg.
   5. Raise leg off the ground.
   6. Use heuristics to calculate where to place leg down. Move some distance towards that position.
-  7. Repeat previous step until time to lower leg.
+  7. Repeat previous step until the gait timer says its time to lower the leg.
   8. Go to the first step.
+
+A good mental image to have is that of the body being propelled through space while the legs move up and down in phases, sticking to the surface wherever they touch.
 
 # Conclusion
 
-This is a particularly powerful system.
+Additional work is needed to detect when a leg is about to reach the end of its range, and handle it appropriately. We could, for instance, allow that phase to go first, or simply force the hexapod to stop and recenter its legs. 
 
-No further logic is required to handle cases that simpler systems are unable to handle. Cases like changing the direction of motion mid-step. (If in leg-up, it will move as far towards the new target position. If in leg-down, the leg will remain at the same position until it is its turn to raise its leg.)
+This is a particularly powerful system, especially because it handles cases that others are unable to. It gracefully handles changing the direction of motion mid-step, and even walking and rotating simultaneously. The underlying concepts are simple, but they come together to make something amazing.
 
-Further changes in detecting when a leg is about to reach the end of its range, and changing phases so that it is able to lift off immediately. 
+This has been quite a ride, taking a few weeks out of my summer to complete, and I've learnt so much by doing this.
