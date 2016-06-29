@@ -39,6 +39,16 @@ body {
 	}
 }
 
+p.blog-image.full-width {
+	margin: -@font-size-h1 -3em @font-size-h1;
+}
+
+.main-text p.blog-image:first-child {
+	// Change the left/right margins to remove the space, and
+	// shift the top margin to under the image.
+	margin: -@font-size-h1 -3em @font-size-h1;
+}
+
 .main-text .postlink a {
 	text-decoration: none;
 }

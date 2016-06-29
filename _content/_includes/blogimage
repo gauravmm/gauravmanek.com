@@ -6,7 +6,7 @@
 {% else %}
 	{% capture href %}{{ img_path }}{{ img_first }}.full{{ img_ext }}{% endcapture %}
 {% endif %}
-<p class="blog-image">
+<p class="blog-image {% if include.fullwidth %}full-width{% endif %}">
 	<a href="{{ href }}" ><img src="{{ img_path }}{{ img_first }}.thumb{{ img_ext }}" alt="{{ include.caption | escape }}" />
 	</a>
 	<span>{{ include.caption }}</span>
