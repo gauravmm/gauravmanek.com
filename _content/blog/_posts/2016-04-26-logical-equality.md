@@ -1,6 +1,6 @@
 ---
 title: Logical Equality in Navelgazer
-subtitle: Yet another Turing machine engine, for educational use.
+subtitle: Turns out, "equal" is a difficult question.
 ---
 
 As [posted previously](/projects/2016/04/18/navelgazer.html) I wrote Navelgazer, a linter for first-order logic. First order logic covers logical statements in boolean algebra:
@@ -112,19 +112,33 @@ Also, in the worst case, our algorithm will compare each element in `left` with 
 
 ## Nested Conjunctions and Disjunctions
 
-There is another case that we have to address, and that is of nested conjunctions. Specifically, we have to treat `(a ∨ b) ∨ c` as equal to `a ∨ (b ∨ c)`. 
+There is another case that we have to address, and that is of nested conjunctions. Specifically, we have to treat `(a ∨ b) ∨ c`, `a ∨ (b ∨ c)`, and `a ∨ (b ∨ c)` as equal. The algorithm that we have detailed so far assumes that the input does not contain conjunctions as children of conjunctions.
 
-## 
-
-[1]  (1) (∀x)(∀y)((∃z)(Txz ∧ Ayz) → Ryx)         P
-
+Instead of modifying the algorithm to do this, we address this at the time the conjunction object is created. The constructor automatically flattens such nested conjunctions (or disjunctions), which immediately solves this problem.
 
 # Finding Letter Mappings
 
-There is an additional 
+There is an additional problem we need to solve. Instead of just checking to see if two sentences are equal, we need find all possible substitutions of free variables in a sentence `left` that yield `right`, even allowing for multiple free variables to become the same fixed variable.
 
-Finally, the comparison of disjunctions and conjunctions. Our solution is to compare every possible pair of left and right, precomputing a table which is `true` at cell `(i, j)` if `left.child[i]` and `right.child[j]` are equal. Then, we simply try every possible permutation of assignments to find the correct permutation.
+An example would be apt here. `(x ∨ y) → (x ∧ z)` can be turned into:
 
+  - `(x ∨ y) → (x ∧ z)` given mapping (`x => x`, `y => y`, `z => z`),
+  - `(x ∨ y) → (x ∧ y)` given mapping (`x => x`, `y => y`, `z => y`),
+  - `(x ∨ z) → (x ∧ y)` given mapping (`x => x`, `y => z`, `z => y`), or--
+  - `(w ∨ w) → (w ∧ w)` given mapping (`x => w`, `y => w`, `z => w`).
 
-## One-one Mappings
+We need to determine if any substitution can give us one sentence from another, and if so, all the possible mappings that give rise to this.
 
+This uses a similar algorithm to that investigated previously, with a twist. Instead of returning a boolean value, it returns a list of possible mappings. At the base case (when considering two sentence letters), it produces a mapping from `left.letter` to `right.letter`, leaving the rest of the mappings unspecified. 
+
+When combining two lists of possible mappings (e.g. when combining the mappings for the antecedent and consequent in a conditional), we take the 'cross product' of all mappings: for each pair of mappings, if they do not contain conflicting mappings, we take their union. Otherwise, we discard the pair. The resultant list of mappings is deduplicated and returned.
+
+Finally, when processing conjunctions and disjunctions, we assemble all mappings from every possible permutation into a single list. This is a terribly slow process, and so we have some implementation strategies to speed it up: We begin by comparing every possible pair nodes from `left` and `right`, precomputing a table which contains at cell `(i, j)` a list of all mappings that translate `left.child[i]` into `right.child[j]`. Then, we try every possible permutation, pruning the exploration tree if no further combinations are possible.
+
+This is an exponential-time algorithm in the worst case, but typical inputs do not exceed four terms in the conjunction or disjunction, and so this it is quick in practice.
+
+# Conclusion
+
+There is much work to be done on this particular project, mainly in terms of writing tests and optimizing code.
+
+Perhaps I'll soon write more about the truth-functional solver, the part of the code that verifies if a target statement is implied by a set of antecedent statements.
