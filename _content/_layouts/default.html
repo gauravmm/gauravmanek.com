@@ -14,7 +14,7 @@ layout: wrapper
 <div class="page-title">
 	<div class="container">
 		<h1>{{ page.title }}</h1>
-		{% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
+		{% if page.subtitle %}<h2>{{ page.subtitle }}{% if page.link %} <a href="{{ page.link }}">(link)</a>{% endif %}</h2>{% endif %}
 	</div>
 </div>
 <div class="container-bkg">
@@ -31,7 +31,7 @@ layout: wrapper
 				<a name="sitemap"></a>
 				<h3>Sitemap</h3>
 				<ul class="page-footer-links sitemap">
-					{% include nav.html %}
+					{% include nav.html home=true %}
 					<li class="footer-jump-top"><a href="#top">Top &uarr;</a></li>
 				</ul>
 			</div>
@@ -49,11 +49,11 @@ layout: wrapper
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 footer-copyright">&copy; Gaurav Manek 2014. <a href="https://github.com/gauravmm/gauravmanek.com">Get the source code.</a></div>
+			<div class="col-xs-12 footer-copyright">&copy; Gaurav Manek 2011-2016. <a href="https://github.com/gauravmm/gauravmanek.com">Get the source code here.</a></div>
 		</div>
 	</div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-3.0.0.min.js"><\/script>')</script>
 <script src="/js/main.js"></script>

@@ -11,11 +11,7 @@ layout: wrapper
 			{{ content }}
 			</div>
 			<ul class="list-menu front-nav sitemap">
-				{% if page.url == "/index.html" %}
-					{% include nav.html hidehome=true %}
-				{% else %}
-					{% include nav.html %}
-				{% endif %}
+				{% include nav.html %}
 			</ul>
 			<ul class="list-menu front-connect">
 				<li><a href="http://sg.linkedin.com/in/gauravmanek"><span class="front-icon icon-linkedin">&nbsp;</span></a></li>

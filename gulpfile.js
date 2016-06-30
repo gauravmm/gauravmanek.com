@@ -9,7 +9,7 @@ var htmlmin = require('gulp-htmlmin');      // Minimize HTML
 var uglify = require('gulp-uglify');        // JS Processing
 var less = require('gulp-less');            // Less
 var uncss = require('gulp-uncss');          // Remove unused CSS
-var minifyCSS = require('gulp-minify-css'); // Minify CSS
+var cleanCSS = require('gulp-clean-css');   // Minify CSS
 var glob = require('glob');                 // Used to list all HTML files to pass to the CSS minifier
 var rename = require('gulp-rename');        // Used to modify the path of blog images.
 var imagemin = require('gulp-imagemin');    // Image minification
@@ -44,7 +44,8 @@ var transforms = {
 	lessc: {from: ["_less/main.less"], to: "css/"},
 	js: {from: ["_js/*"], to: "js/"},
 	cssmin: [{files: ["css/main.css"]}],
-	imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", styles: [{name: "thumb", max_width: 600, max_height: 300}, {name: "full", max_width: 1600, max_height: 1600}]}
+	imagemin: {parent: '_posts/', folder_prefix: "_", new_name: "img/", styles: [{name: "thumb", max_width: 600, max_height: 300}, {name: "full", max_width: 1600, max_height: 1600}]},
+	webm: {parent: '_posts/', folder_prefix: "_", new_name: "img/" }
 };
 
 
@@ -109,7 +110,7 @@ gulp.task('build-lessc', ['build-copystatic', 'build-jekyll'], function() {
 						html: glob.sync(paths.dest + "**/*.html"),
 						ignore: [/\.scrollspy\-(.*)/, ".sidebar-nav.fixed"]
 					}))
-		.pipe(minifyCSS({noRebase:true, keepSpecialComments:0}))
+		.pipe(cleanCSS({rebase:false, keepSpecialComments:0}))
 		.pipe(gulp.dest(paths.dest + transforms.lessc.to));
 });
 
@@ -123,7 +124,7 @@ gulp.task('build-jsmin', ['build-copystatic'], function() {
 
 // The transformations applied on images to convert them from the source to the export formats.
 // 
-var blogImageTransform = function (im, style) {
+var blogImageTransform = function (style) {
 	return lazypipe()
 		.pipe(rename, function (path) {
 				path.extname = "." + style.name + path.extname.toLowerCase();
@@ -136,22 +137,18 @@ var blogImageTransform = function (im, style) {
 				height: style.max_height,
 				imageMagick: true
 			})
-		// Workaround to prevent optipng bug in imagemin
-		// https://github.com/google/web-starter-kit/issues/279
-		.pipe(gulpif, /.*\.png/, gutil.noop(), imagemin({
+		.pipe(imagemin, {
 				progressive: true,
 				svgoPlugins: [{removeViewBox: false}],
-			}));
+			});
 };
 
 
-var im = transforms.imagemin;
-var styleNames = im.styles.map(function (e) { return e.name });
+var styleNames = transforms.imagemin.styles.map(function (e) { return e.name });
 var styleNamesRegexp = new RegExp(".*\.(" + styleNames.join("|") + ")\..+");
 
-
 function blogImageStream (ifProcessed, ifNotProcessed) {
-	return gulp.src([paths.content + "**/" + im.parent + im.folder_prefix + "*/*.*", "!**/*.xcf"], { base: paths.content })
+	return gulp.src([paths.content + "**/" + transforms.imagemin.parent + transforms.imagemin.folder_prefix + "*/*.@(png|jpg|jpeg|gif)"], { base: paths.content })
 				.pipe(gulpif(styleNamesRegexp,
 						ifProcessed(),
 						ifNotProcessed()
@@ -161,17 +158,25 @@ function blogImageStream (ifProcessed, ifNotProcessed) {
 function blogImageBuild(){
 	// Parallel from this
 	// http://www.jamescrowley.co.uk/2014/02/17/using-gulp-packaging-files-by-folder/
-	var tasks = im.styles.map(function(style) {
-			return blogImageStream(gutil.noop, blogImageTransform(im, style));
+	var tasks = transforms.imagemin.styles.map(function(style) {
+			return blogImageStream(gutil.noop, blogImageTransform(style));
 		});
 
 	return es.concat.apply(null, tasks)
 		.pipe(gulpIgnore.include(styleNamesRegexp)) // Only keep the processed files
 		.pipe(gulp.dest(paths.content))  // Pipe the output to the content folder
 		.pipe(rename(function (path) {
-				path.dirname = path.dirname.replace(im.parent + im.folder_prefix, im.new_name);
+				path.dirname = path.dirname.replace(transforms.imagemin.parent + transforms.imagemin.folder_prefix, transforms.imagemin.new_name);
 			})) // Alter the paths for the processed images
 		.pipe(gulp.dest(paths.dest)); // Merge into final site
+}
+
+function blogWebmBuild() {
+	gulp.src([paths.content + "**/" + transforms.webm.parent + transforms.webm.folder_prefix + "*/*.webm"], { base: paths.content })
+	.pipe(rename(function (path) {
+		path.dirname = path.dirname.replace(transforms.webm.parent + transforms.webm.folder_prefix, transforms.webm.new_name);
+	})) // Alter the paths for the webms
+	.pipe(gulp.dest(paths.dest)); // Merge into final site
 }
 	
 // Copy all blog images, scaling and optimizing as necessary.
@@ -180,10 +185,15 @@ gulp.task('build-blogimages', ['build-copystatic'], function() {
 	return blogImageBuild();
 });
 
+gulp.task('build-blogwebm', ['build-copystatic'], function() {
+	return blogWebmBuild();
+});
+
+
 
 //// Main Task
 
-gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin', 'build-blogimages'], function(){
+gulp.task('build', ['clean', 'build-jekyll', 'build-copystatic', 'build-lessc', 'build-jsmin', 'build-blogimages', 'build-blogwebm'], function(){
 });
 
 

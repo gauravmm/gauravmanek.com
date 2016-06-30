@@ -26,10 +26,37 @@ body {
 	border-right: thin solid @theme-border;
 }
 
+.main-text {
+	line-height: 1.5;
+	padding: 0 3em;
+
+	a {
+		text-decoration: underline;
+	}
+
+	p {
+		margin: 0 0 16px;
+	}
+}
+
+p.blog-image.full-width {
+	margin: -@font-size-h1 -3em @font-size-h1;
+}
+
+.main-text p.blog-image:first-child {
+	// Change the left/right margins to remove the space, and
+	// shift the top margin to under the image.
+	margin: -@font-size-h1 -3em @font-size-h1;
+}
+
+.main-text .postlink a {
+	text-decoration: none;
+}
 
 .page-title {
 	// Force to grow to fit content
 	overflow: auto;
+	width: 100%;
 	
 	// Colors and themes:
 	background: @theme-primary-lessdark;
@@ -53,6 +80,7 @@ body {
 			margin-top: @font-size-h3;
 		}
 	}
+
 }
 
 @scrollspy-padding:				10px;
@@ -183,6 +211,10 @@ table {
 	}
 }
 
+.youtube-wrapper {
+  text-align: center;
+}
+
 .youtube {
   border: none;
   max-width: 100%;
@@ -221,3 +253,4 @@ table {
 		}
 	}
 }
+
