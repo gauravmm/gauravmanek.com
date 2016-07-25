@@ -29,6 +29,9 @@ body {
 .main-text {
 	line-height: 1.5;
 	padding: 0 3em;
+	@media (max-width: @grid-float-breakpoint) {
+		padding: 0 10px;
+	}
 
 	a {
 		text-decoration: underline;
@@ -41,12 +44,20 @@ body {
 
 p.blog-image.full-width {
 	margin: -@font-size-h1 -3em @font-size-h1;
+	@media (max-width: @grid-float-breakpoint) {
+		margin-left: -10px;
+		margin-right: -10px;
+	}
 }
 
 .main-text p.blog-image:first-child {
 	// Change the left/right margins to remove the space, and
 	// shift the top margin to under the image.
 	margin: -@font-size-h1 -3em @font-size-h1;
+	@media (max-width: @grid-float-breakpoint) {
+		margin-left: -10px;
+		margin-right: -10px;
+	}
 }
 
 .main-text .postlink a {
@@ -187,7 +198,7 @@ p.blog-image.full-width {
   display: block;
   margin: auto;
   
-  > * {
+  * {
 	.img-responsive;
 	margin: auto;
 	text-align: center;
