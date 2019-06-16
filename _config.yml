@@ -11,8 +11,12 @@ layouts_dir: ./_layouts
 include:     ['.htaccess']
 exclude:     []
 
+gems: ['jekyll-less']
 redcarpet:
   extensions: ["tables", "no_intra_emphasis", "smart"]
+
+less:
+  entrypoint: "css/main.less"
 
 defaults:
   -
