@@ -1,5 +1,5 @@
 {
-  "name": "gauravmanek.com_template",
+  "name": "gauravmanek.com",
   "version": "0.0.1",
   "description": "Template for GauravManek.com, built on Bootstrap + Initalizr",
   "main": "gulp.js",
@@ -8,29 +8,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gauravmm/gauravmanek.com_template.git"
+    "url": "https://github.com/gauravmm/gauravmanek.com.git"
   },
   "author": "Gaurav Manek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gauravmm/gauravmanek.com_template/issues"
+    "url": "https://github.com/gauravmm/gauravmanek.com/issues"
   },
-  "homepage": "https://github.com/gauravmm/gauravmanek.com_template",
+  "homepage": "https://github.com/gauravmm/gauravmanek.com",
   "devDependencies": {
     "event-stream": "^4.0.1",
     "glob": "^7.0.3",
-    "gulp": "^4.0.2",
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.3.3",
-    "gulp-debug": "^4.0.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-if": "~2.0.1",
     "gulp-ignore": "^2.0.1",
-    "gulp-image-resize": "^0.13.0",
-    "gulp-imagemin": "^6.0.0",
     "gulp-jekyll": "0.0.0",
     "gulp-less": "^4.0.1",
     "gulp-notify": "^3.2.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-rimraf": "~0.2.0",
     "gulp-uglify": "^3.0.2",
@@ -41,12 +38,13 @@
     "imagemin-optipng": "^7.0.0",
     "imagemin-pngcrush": "^6.0.0",
     "imagemin-pngquant": "^8.0.0",
+    "jekyll": "^3.0.0-beta1",
     "lazypipe": "^1.0.1",
     "less": "^3.9.0",
+    "lodash": "^4.17.11",
     "var": "^0.3.2"
   },
   "dependencies": {
-    "gulp-postcss": "^8.0.0",
-    "lodash": "^4.17.11"
+    "npm-path": "^2.0.4"
   }
 }
