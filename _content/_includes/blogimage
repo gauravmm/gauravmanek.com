@@ -1,13 +1,13 @@
-{% assign img_path = page.path | replace: '/_posts/', '/img/' | remove: '.md' | remove: '.markdown' | append: '/' | prepend: '/' %}
+{% assign img_path = "" %}
 {% assign img_ext = include.src | split: '.' | last | prepend: '.' %}
 {% assign img_first = include.src | remove: img_ext %}
 {% if include.href %}
 	{% assign href = include.href %}
 {% else %}
-	{% capture href %}{{ img_path }}{{ img_first }}.full{{ img_ext }}{% endcapture %}
+	{% capture href %}{{ img_path }}{{ img_first }}{{ img_ext }}{% endcapture %}
 {% endif %}
 <p class="blog-image {% if include.fullwidth %}full-width{% endif %}">
-	<a href="{{ href }}" ><img src="{{ img_path }}{{ img_first }}.thumb{{ img_ext }}" alt="{{ include.caption | escape }}" />
+	<a href="{{ href }}" ><img src="{{ img_path }}{{ img_first }}{{ img_ext }}" alt="{{ include.caption | escape }}" />
 	</a>
 	<span>{{ include.caption }}</span>
 </p>
