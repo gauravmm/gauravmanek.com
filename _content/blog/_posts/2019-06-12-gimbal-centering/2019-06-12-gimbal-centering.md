@@ -83,7 +83,7 @@ def plot_force(X, radius=None, left_l=None, right_l=None, d=None, k=0.01):
   ...
 ```
 
-We can compare the force curves for different values of \\(l_l\\). We can visually compare nearby values with our optimal value; the difference is barely perceptible.
+We can compare the force curves for different values of \\(l_l\\). At our optimal value, the difference between the left and right sides is barely perceptible.
 
 ```python
 plot_force(..., left_l=4), plot_force(..., left_l=5.02), plot_force(..., left_l=6)
