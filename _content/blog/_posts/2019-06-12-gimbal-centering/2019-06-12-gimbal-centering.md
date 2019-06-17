@@ -1,6 +1,6 @@
 ---
 title: Controller Gimbal Centering
-subtitle: Surprisingly thoughtful design for a simple problem.
+subtitle: Modeling and optimizing physical designs with Sympy.
 mathjax: true
 link: https://colab.research.google.com/drive/1JMRrvIveDCNLbjjFnXhKRdBbqAS1PLMy
 ---
@@ -15,12 +15,6 @@ I was upgrading a gimbal in an R/C controller when I noticed that the design of 
 Each axis is has a separate centering mechanism with its own tension spring to provide the inwards force. As the gimbal is pushed away from the center position, the pin carriage it is attached to rotates. One of two pins on the carriage deflects a spring arm, which stretches a spring and provides the restorative force. Here's a diagram:
 
 {% include blogimage src="diagram.png" %}
-
-## Why go to all this trouble?
-
-Cost is often the overriding concern in making cheap consumer electronics and this design requires a single spring instead of alternate designs that use a pair. (Springs are pricey compared to an injection-molded part.) However, I have seen this design on relatively pricey (~$40) gimbals so the advantage is not just in cost.
-
-For R/C pilots, getting a crisp feedback around the zero position of the gimbal is desirable. This design guarantees crisp zeroing and allows for the restoring force deadzone to be controlled.
 
 ## The Problem
 
@@ -37,7 +31,7 @@ We assume a simple geometry with a frictionless side and a pin of infinitesimal 
     \right)
 \\]
 
-Assuming the left-side pin is about \\(l_l = 4mm\\) from the center, this looks like:
+Measuring the left-side pin to be about \\(l_l = 4mm\\) from the center, this looks like:
 
 ```python
 def theta(alpha : float, radius=None, arm_l=None, arm_r=None):
@@ -71,14 +65,15 @@ We use the [Golden Section search](https://en.wikipedia.org/wiki/Golden-section_
 left_l_opt = minimize_scalar(loss_partial, bracket=[1e-5, gp["right_l"]], method="golden")
 ```
 
-For \(l_l = 5.02 \text{mm}\) get this:
+After a few seconds, we get \\(l_l = 5.02 \text{mm}\\), which produces this curve:
 
 {% include blogimage src="opt_simple.png" %}
 
+Its much closer, and would be much more difficult to feel in the gimbal movement. Now let's explicitly model the force-response curve:
 
-## Force-Response
+## Force curves
 
-The output angle is useful to find a value of \(l_l\) that minimizes the difference in response, but ultimately we care about the force-response curve. Consider a preloaded spring (already stretched some distance `d`) with spring coefficient `k=0.01 N/mm`. We model the force response curve:
+The output angle is useful to find a value of \\(l_l\\) that minimizes the difference in response, but ultimately we care about the force-response curve. Consider a preloaded spring (already stretched some distance `d`) with spring coefficient `k=0.01 N/mm`. We model the force response curve:
 
 ```python
 def theta_to_force(theta, d=None, k=0.01, radius=None):
@@ -86,114 +81,98 @@ def theta_to_force(theta, d=None, k=0.01, radius=None):
 
 def plot_force(X, radius=None, left_l=None, right_l=None, d=None, k=0.01):
   ...
-
-plot_force(..., d=0), plot_force(..., d=2), plot_force(..., d=-2)
-plt.legend(["no preload", "2mm preload", "2mm slack"])
 ```
 
-{% include blogimage src="simple_forceresponse.png" %}
+We can compare the force curves for different values of \\(l_l\\). We can visually compare nearby values with our optimal value; the difference is barely perceptible.
+
+```python
+plot_force(..., left_l=4), plot_force(..., left_l=5.02), plot_force(..., left_l=6)
+```
+
+{% include blogimage src="simple_forceresponse_l.png" %}
+
 
 # Pin-Diameter Model
 
-So far, so simple. The problem with our model is the diameter of the pins is significant compared to the displacement. Now we model this using the symbolic solver `sympy`.
+So far, so simple. The problem with our model is the diameter of the pins (\\(\sim 1 \text{mm}\\)) is significant compared to the displacement. This means the point of contact between the spring arm and pin carriage slides along the spring arm as the angle changes.
+
+We model this using `sympy`, which lets us perform symbolic geometry calculations (among other things). It is overkill for this project, but is an interesting tool to explore.
+
+Sympy behaves a lot like a dataflow system. It allows you to define `symbols`, which are placeholders for values. You can perform operations (derivatives, translations, rotations, etc.) in terms of these symbols, and ultimately substitute real values and obtain solutions.
+
+We begin by defining the problem in terms of the symbols:
 
 ```
 import sympy as sym
-import mpmath as mpm
 
-pin_r = .5 #mm
-vert_disp = 0 #mm
-
-class GimbalSym(object):
-  def __init__(self):
-    # Structure of pins:
-    r, ll, lr = sym.symbols("r ll lr")
-    # Angle:
-    a, t = sym.symbols("a t")
-    # Spring setup:
-    pr, v = sym.symbols("pr v")
-    # Point where the lever arm touches the pin:
-    c = sym.symbols("c")
-    
-    # Center of rotation:
-    self.center = sym.Point(0, 0)
-    self.pin_arm = sym.Line2D(self.center, sym.Point(r, 0)).rotate(a)
-    self.right_pin = self.pin_arm.arbitrary_point(lr)
-    self.left_pin = self.pin_arm.rotate(sym.pi).arbitrary_point(ll)
-    self.radius = r
-
-    # Point at which the lever is fixed:
-    self.lever_fix = sym.Point(-r, v)
-    self.lever_arm = sym.Line2D(self.lever_fix, sym.Point(r, v)).rotate(t, self.lever_fix)
-    self.lever_arm_intersection_point = self.lever_arm.arbitrary_point(c)
-    
-    self.pin_radius = pr
-    pin = sym.Point(self.pin_radius, 0).rotate(t - sym.pi/2)
-    self.lever_arm_contact_point = self.lever_arm_intersection_point + pin    
-    
-    self.symbols = {"r": r, "ll": ll, "lr": lr, "a": a, "t": t, "pr": pr, "v": v, "c": c, "t": t}
-
-  def subst(self, e, alpha, radius=15, l_left=5, l_right=12, arm_displacement=1., pin_radius=1., theta=None, c=None):
-    args = [("a", alpha), ("ll", l_left/self.symbols["r"]), ("lr", l_right/self.symbols["r"]), ("r", radius), ("v", arm_displacement), ("pr", pin_radius)]
-    if theta is not None:
-      args.append(("t", theta))
-    if c is not None:
-      args.append(("c", c))
-    for sy, val in args:
-      e = e.subs(self.symbols[sy], val)
-    return e
-
-  def solve(self, *args, **kwargs):
-    t = self.symbols["t"]
-    c = self.symbols["c"]
-
-    def select_solution(possible):
-      for tv, cv in possible:
-        tv = tv.evalf()
-        cv = cv.evalf()
-        
-        if cv < 0 or cv > 1:
-          continue;
-        return tv, cv
-      return None
-    
-    closest_l = self.subst(self.lever_arm_contact_point - self.left_pin, *args, **kwargs)
-    p_closest_l = sym.solve((closest_l.x, closest_l.y), (t, c))
-    try:
-      t_l, c_l = select_solution(p_closest_l)
-    except TypeError:
-      t_l, c_l = 0.0, 0.0
-
-    closest_r = self.subst(self.lever_arm_contact_point - self.right_pin, *args, **kwargs)
-    p_closest_r = sym.solve((closest_r.x, closest_r.y), (t, c))
-    try:
-      t_r, c_r = select_solution(p_closest_r)
-    except TypeError:
-      t_r, c_r = 0.0, 0.0
-
-    return t_l, c_l, t_r, c_r
-
-  def get_theta(self, *args, **kwargs):
-    t_l, c_l, t_r, c_r = self.solve(*args, **kwargs)
-    # Figure out which control is binding:
-    binding = "left" if (t_r > sym.pi) or t_l > t_r else "right" 
-    
-    return (t_l if binding == "left" else t_r), binding
-  
-  def draw(self, ax, *args, **kwargs):
-    ...
-
-g = GimbalSym()
-
-fig, axes = plt.subplots(2, 2, sharex="all", sharey="all", figsize=(12., 8.))
-g.draw(axes[0, 0], -0.4), g.draw(axes[0, 1], -0.1), g.draw(axes[1, 0],  0.0), g.draw(axes[1, 1],  0.6)
+# Structure of pins:
+r  = sym.symbols("r")  # radius
+ll = sym.symbols("ll") # length_left, as a fraction of the radius
+lr = sym.symbols("lr") # length_right, as a fraction of the radius
+a  = sym.symbols("a")  # alpha
+t  = sym.symbols("t")  # theta
+pr = sym.symbols("pr") # pin radius
+v  = sym.symbols("v")  # vertical displacement of pin arm
 ```
+
+We describe the pin carriage in terms of these symbols. It passes through the origin and is rotated by angle `a`. The left and right pins extend `ll/r` and `lr/r` units along the line.
+
+```python    
+center = sym.Point(0, 0)
+pin_arm = sym.Line2D(center, sym.Point(r, 0)).rotate(a)
+right_pin = pin_arm.arbitrary_point(lr)
+left_pin = pin_arm.rotate(sym.pi).arbitrary_point(ll)
+```
+
+We can check our work with symbolic solutions for these! For example, `SymPy` evaluates `left_pin` to `Point2D(lr*r*cos(a), lr*r*sin(a))`.
+
+Similarly, we construct the sping arm. This is anchored at `(-r, v)` and is rotated by angle `t`. 
+
+```python
+# Point at which the lever is fixed:
+lever_fix = sym.Point(-r, v)
+lever_arm = sym.Line2D(lever_fix, sym.Point(r, v)).rotate(t, lever_fix)
+```    
+
+We assume that the pin is touching the spring arm some distance `c/(2r)` along the spring arm. We create an additional symbol `c` and model the contact point as being `pin_radius` away from `c`:
+
+```python
+# Point where the lever arm touches the pin:
+c = sym.symbols("c")
+lever_arm_intersection_point = lever_arm.arbitrary_point(c)
+pin = sym.Point(pin_radius, 0).rotate(t - sym.pi/2)
+lever_arm_contact_point = lever_arm_intersection_point + pin    
+```
+
+So far, we have constructed the spring arm and the pin carriage separately, without modeling the contact between the two. We do this by assuming each pin touches the spring arm and calculating the corresponding `theta`. The binding pin (the pin lifting the spring arm) will have the higher `theta`.
+
+```python
+# A utility function to perform symbol substitution
+def subst(e, alpha, radius=15, l_left=5, l_right=12, arm_displacement=1., pin_radius=1., theta=None, c=None):
+    ... # Substitute values for symbols.
+
+def solve(*args, **kwargs):
+    # Assume left pin is touching the spring arm:
+    closest_l = subst(lever_arm_contact_point - left_pin, *args, **kwargs)
+    p_closest_l = sym.solve((closest_l.x, closest_l.y), (t, c))
+    t_l, _ = select_solution(p_closest_l) # Select a valid solution
+    
+    # Assume right pin is touching the spring arm:
+    closest_r = subst(lever_arm_contact_point - right_pin, *args, **kwargs)
+    p_closest_r = sym.solve((closest_r.x, closest_r.y), (t, c))
+    t_r, _ = select_solution(p_closest_r)
+
+    binding = "left" if (t_r > sym.pi) or t_l > t_r else "right" 
+    return (t_l if binding == "left" else t_r), binding
+```
+
+Now that we have a way to model this, we can render images for different gimbal displacements:
 
 {% include blogimage src="model_gimbal_response.png" %}
 
 ## Optimizing This
 
-Now that we have a model, we can optimize this. This takes about an hour to run:
+Now that we have a model, we can optimize this exactly as we did before. This takes about half an hour to run on Google Colab:
 
 ```python
 X_left  = np.arange(-np.pi/6,  1e-4,  np.pi/6/8)
@@ -210,4 +189,8 @@ left_l_opt = minimize_scalar(loss_partial, bracket=[1e-5, gp["right_l"]], method
 plot_gimbalsym_theta(...)
 ```
 
+The new optimum is at \\(l_l = 4.83 \text{mm}\\), which produces this response curve:
 
+{% include blogimage src="pinmodel_forceresponse.png" %}
+
+Great!
