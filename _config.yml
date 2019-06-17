@@ -32,10 +32,15 @@ defaults:
     values:
       layout: "post"
       category: "projects"
-
   -
     scope:
       path: "/blog"
     values:
       layout: "post"
       category: "blog"
+  -
+    scope:
+      path: "/research"
+    values:
+      layout: "post"
+      category: "research"
