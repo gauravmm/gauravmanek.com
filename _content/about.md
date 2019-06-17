@@ -3,14 +3,12 @@ title: About
 innavbar: true
 ---
 
-I'm Gaurav Manek. 
+I'm Gaurav Manek, a PhD candidate advised by [Zico Kolter](http://zicokolter.com/) at Carnegie Mellon University since Fall 2017.
 
-I graduated from Brown University with B.Sc. (Hons) in Computer Science in Spring 2016, after three years of study. While in Brown, I worked in [Dr. Stefanie Tellex's](http://cs.brown.edu/~stefie10/) [Humans to Robots laboratory](http://h2r.cs.brown.edu/) for two years, eventually writing my [honors thesis on parsing prepositional statements incrementally](https://github.com/gauravmm/Brown-Honors-Thesis/releases).
+In my free time, I [build things](/projects/), [write about building things](/blog/), and occasionally [bake](http://cooking.gauravmanek.com/). I speak Hindi and (halting) American Sign Language. I have also learnt to [crack a bullwhip](http://www.youtube.com/watch?v=p-IAWn2YdVo).
 
-While at Brown, I volunteered for two and a half years at the Brown [Sexual Health Awareness Group (SHAG)](https://www.brown.edu/campus-life/health/services/promotion/shag) as a peer counsellor, responding to individual queries as well as organizing campus-wide events for undergraduate students. I was also the first Technology House ombudsperson, acting as a chaplain, paracounsellor, and mediator for a group of around sixty people.
+Previously, I was working as a research engineer for [A*STAR](https://www.a-star.edu.sg/), in the [Deep Learning 2.0](https://www.a-star.edu.sg/i2r/RESEARCH/DEEP-LEARNING) lab, with [Vijay Chandrasekhar](http://vijaychan.github.io/).
 
-Now that I'm back in Singapore, I am working as a research engineer for [A*STAR](https://www.a-star.edu.sg/), who do not endorse any content on this site. 
-
-In my free time, I [build things](/projects/), [write about building things](/blog/), and occasionally [bake](http://cooking.gauravmanek.com.s3-website-us-east-1.amazonaws.com/). I speak Hindi, Kutchi, and (halting) American Sign Language. I have also learnt to [crack a bullwhip](http://www.youtube.com/watch?v=p-IAWn2YdVo).
+I graduated from Brown University with B.Sc. (Hons) in Computer Science in Spring 2016. While in Brown, I worked in [Dr. Stefanie Tellex's](http://cs.brown.edu/~stefie10/) [Humans to Robots laboratory](http://h2r.cs.brown.edu/) for two years, eventually writing my [honors thesis on parsing prepositional statements incrementally](https://github.com/gauravmm/Brown-Honors-Thesis/releases).
 
 You can [connect with me on LinkedIn](http://sg.linkedin.com/in/gauravmanek), [see what I've been writing on GitHub](https://github.com/gauravmm), or [send me an email](mailto:gaurav@gauravmanek.com).
