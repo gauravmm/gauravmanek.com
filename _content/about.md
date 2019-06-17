@@ -3,6 +3,8 @@ title: About
 innavbar: true
 ---
 
+<img src="/img/headshot.jpg" style="float:left; width: 25%; margin-right: 1em; border-radius: 5px;"/>
+
 I'm Gaurav Manek, a PhD candidate advised by [Zico Kolter](http://zicokolter.com/) at Carnegie Mellon University since Fall 2017.
 
 In my free time, I [build things](/projects/), [write about building things](/blog/), and occasionally [bake](http://cooking.gauravmanek.com/). I speak Hindi and (halting) American Sign Language. I have also learnt to [crack a bullwhip](http://www.youtube.com/watch?v=p-IAWn2YdVo).
