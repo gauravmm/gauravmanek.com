@@ -147,7 +147,7 @@ When processing images, we want to exclude images that already have minimized co
 
 # Application: Image handling
 
-Handling images for this website combines the techniques discussed above. The use case is described in [Templating with Jekyll]({% post_url 2014-07-16-templating-with-jeykll %}). This is the final arrangement of images:
+Handling images for this website combines the techniques discussed above. The use case is described in [Templating with Jekyll](/blog/2014/templating-with-jeykll/). This is the final arrangement of images:
 
 Images are placed in folders in the same directory as posts, like this:
 

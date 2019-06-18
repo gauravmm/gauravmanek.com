@@ -37,7 +37,7 @@ body {
 
 ## Automatic CSS minimizing
 
-CSS frameworks (like Bootstrap) have and CSS compilers (like [less](http://lesscss.org/)) produce CSS files with a large number of different declaration groups, a large portion of which are not used in any of the source files. Part of the build process involves [automatically stripping the generated CSS file of all unused declaration blocks and specifiers]({% post_url 2014-07-20-building-with-gulp %}).
+CSS frameworks (like Bootstrap) have and CSS compilers (like [less](http://lesscss.org/)) produce CSS files with a large number of different declaration groups, a large portion of which are not used in any of the source files. Part of the build process involves [automatically stripping the generated CSS file of all unused declaration blocks and specifiers](/blog/2014/building-with-gulp/).
 
 This (almost unnoticably) breaks the traditional mental dependency model that web designers keep by changing the generated css file without the designer's direct intervention. It should not affect the styling of the document (after all, if the selector were in use elsewhere, it would already be available), but it will affect the total size of the download, especially if the CSS in question is only used on a single page.
 

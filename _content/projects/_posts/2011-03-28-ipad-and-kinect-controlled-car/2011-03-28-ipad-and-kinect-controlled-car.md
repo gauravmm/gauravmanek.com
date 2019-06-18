@@ -91,7 +91,7 @@ The web-based client, on the other hand, is much more complex and interesting. A
 
 The JavaScript has been extensively commented, and is included (along with the optional files) in the download above.
 
-The purpose of the optional files (`cache_manifest.php` and `date.php`) is explained [here]({% post_url 2011-02-17-ipad-web-application-development %}). They are not essential to the functioning of the code.
+The purpose of the optional files (`cache_manifest.php` and `date.php`) is explained [here](/blog/2011/ipad-web-application-development/). They are not essential to the functioning of the code.
 
 # Kinect Controller
 

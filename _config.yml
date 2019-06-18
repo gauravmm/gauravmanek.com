@@ -10,7 +10,7 @@ plugins_dir: ./_plugins
 layouts_dir: ./_layouts
 include:     ['.htaccess']
 exclude:     []
-permalink: /:year/:month/:day/:title/
+permalink: /:categories/:year/:title/
 
 redcarpet:
   extensions: ["tables", "no_intra_emphasis", "smart"]

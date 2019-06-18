@@ -3,7 +3,7 @@ title: Logical Equality in Navelgazer
 subtitle: Turns out, "equal" is a difficult question.
 ---
 
-As [posted previously](/projects/2016/04/18/navelgazer/) I wrote Navelgazer, a linter for first-order logic. First order logic covers logical statements in boolean algebra:
+As [posted previously](/projects/2016/navelgazer/) I wrote Navelgazer, a linter for first-order logic. First order logic covers logical statements in boolean algebra:
 
   - with sentence letters and logical operators (`x`, `x ∧ ¬y`, etc.),
   - allowing for predicates over sentence letters (`Px`, `Qxy`, etc.), and--
