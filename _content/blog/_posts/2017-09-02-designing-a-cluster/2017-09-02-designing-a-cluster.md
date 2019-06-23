@@ -88,7 +88,15 @@ At this point, you should also start running offsite backups. Use a cheap NAS (e
 
 This is the regime where you move from one rack to three. Remember to amortize the PDU over multiple racks, and consider buying (relatively) cheap 12-port switches to simplify network cabling between racks.
 
-You should use past performance data to determine what the bottlenecks in your operation are. If the limiting factor is network speed, a cheap and easy way to increase the NAS throughput is to install a second network card in your bastion host and split the LAN into vLANs using a managed switch. For a little more money, you can upgrade your machines to use 10GbE.
+In this range, it is likely that the network throughput is the limiting factor. To increase the NAS throughput:
+
+ - A cheap and easy way is to install a second network card in your bastion host and split the LAN into vLANs using a managed switch.
+ - Install a second network card in your bastion host and purchase a second managed switch to split the LAN.
+ - For a little more money, you can upgrade the backbone switch and the bastion host to use 10GbE, and leave the remaining connnections at 1GbE (this requires a managed switch or a router.)
+
+You should use past performance data to determine what the bottlenecks in your operation are before making the decision.
+
+{% include blogimage src="sixteen_machine.png" caption="Your cluster, now with dual networks" %}
 
 # 64++ GPUs
 
