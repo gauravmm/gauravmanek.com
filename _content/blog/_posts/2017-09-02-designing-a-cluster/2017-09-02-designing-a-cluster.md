@@ -36,7 +36,7 @@ When designing the bastion, keep these in mind:
 
  - **Network interfaces**: It should have at least two network interfaces; one to the internet and the other to the compute server (and eventually the switch). 1GbE is sufficient for this.
  - **RAM**: Ensure there is at least 16GB of RAM in the bastion host for the NFS server to maintain a cache. 
- - **Hard Drives**: The bastion stores data on spinning hard drives. When configuring, use some sort of fault-tolerance like RAID 6 or a ZFS pool. Spinning drives are cheap enough that you can begin with 4x3 TB drives for 12TB nominal capacity and 9TB actual (after replication loss)
+ - **Hard Drives**: The bastion stores data on spinning hard drives. When configuring, use some sort of fault-tolerance like RAID 6 or a ZFS pool. Spinning drives are cheap enough that you can begin with 4x3 TB drives for 12TB nominal capacity and 9TB actual (after parity).
  - **PCIe Slots**: Ensure there are at least 8 PCIe lanes available in case we need to add a data backbone network.
 
 GPU servers:
