@@ -31,7 +31,7 @@ We start with our very first pair of machines. Here's how we arrange them:
 
 We split the responsibilities into two machines:
 
- - A *bastion host* provides persistent storage, firewall, and routing services to the compute server. 
+ - A *bastion host* provides persistent storage (over NFS), firewall, and routing services to the compute server. 
  - A *compute server* provides GPUs and enough local resources to run them.
 
 Users log in to the bastion server, which forwards them to the compute server. The chief advantage of this arrangement is that all compute machines appear uniform to users. This also makes them ephemeral, which allows us (once we scale the system) to take them down and replace them with minimal disruption to service.
@@ -54,7 +54,7 @@ Now we start scaling up! At this point, we are expanding from one compute machin
 
 {% include blogimage src="four_machine.png" caption="Four compute machines." %}
 
-At this scale, we add a switch to provide routing between the bastion and the compute hosts. A gigabit ethernet switch is still sufficient at this scale; a large NFS cache on the client machines will, once the working set is cached, provide sufficient performance.
+At this scale, we add a switch to provide routing between the bastion and the compute hosts. A 24-port gigabit ethernet switch is still sufficient at this scale; a large NFS cache on the client machines will, once the working set is cached, provide sufficient read performance.
 
 We also add an uninterruptible power supply for the bastion host. A 250VA system will allow the bastion host to remain online through temporary power brownouts or circuit resets. We do not provide battery backups to the compute servers because UPSes capable of delivering the required wattage tend to be very expensive, and the bastion can bring them back online with Wake-On-LAN packets.
 
@@ -67,6 +67,9 @@ Cooling is the easiest to analyze: a standard 1440W GPU server, under maximum lo
 
 A general rule of thumb is that a single 110V/20A circuit supports two servers; now that we have four--eight machines, we are likely exceedng the number of available power circuits. Adding power circuitry is expensive and depends on the particular building; once again, moving to a datacenter will fix this problem.
 
+
+## Rackmounting
+
 Rackmounting the devices allows for much easier wire management, better cooling (through consistent airflow), and much more space-efficient housing. It is also mandatory if you want to co-locate your machines in a datacenter. Here's the cost breakdown:
 
 Assuming that your datacenter imposes 42U (standard height unit) limit on the height of your rack, each computer is 4U, and the switch and UPS are each 2U, you can fit a total of 8 compute machines, the bastion, UPS, and switch on a single rack. Expect to pay about $1k for a high-quality 42U (standard height unit) extended-depth (for GPU servers) server rack. 
@@ -75,15 +78,25 @@ Also assuming that your GPU servers draw a maximum of 1440W each, a 21kW three-p
 
 Datacenters charge a colocation fee for servers. When moving your servers to a university-run datacenter, expect to spend about $500/rack/month; this price should include power, cooling, security, environmental monitoring, and (occasional) minor service events. Commercial datacenters charge substantially more, especially for extended-depth racks and service events.
 
+## Offsite backups
+
+At this point, you should also start running offsite backups. Use a cheap NAS (e.g. a Synology) and run incremental backups nightly. An article on configuring this is forthcoming. Purchase enough storage to hold up to 4x the primary storage of the cluster, and house this machine offsite; preferably in a different zip-code. Test backups often and report backup exceptions.
+
+{% include blogimage src="eight_machine.png" caption="Your cluster, now with offsite backups!" %}
 
 # 32--64 GPUs (US$200k)
 
-This is the 
+This is the regime where you move from one rack to three. Remember to amortize the PDU over multiple racks, and consider buying (relatively) cheap 12-port switches to simplify network cabling between racks.
+
+You should use past performance data to determine what the bottlenecks in your operation are. If the limiting factor is network speed, a cheap and easy way to increase the NAS throughput is to install a second network card in your bastion host and split the LAN into vLANs using a managed switch. For a little more money, you can upgrade your machines to use 10GbE.
 
 # 64++ GPUs
 
-This is the point where we separate the data hosting from the bastion host.
-
+At this point, we are outside my range of expertise. From my research key changes in this step should be:
+ - separate the data hosting from the bastion host by having dedicated NAS host machines
+ - have multiple bastion hosts to prevent bottlenecking
+ - add a second network for data
+ - add a scheduler to automatically distribute jobs and run them at scale
 
 # Special upgrades
 
@@ -93,4 +106,4 @@ If you have write-heavy workloads (on a GPU cluster?), or are reading from a dat
 
 A common trick (for the fledgeling cluster) is to purchase one or two-generation old InfiniBand hardware from eBay or resellers. (In 2019, with 100GbE InfiniBand available, it is possible to buy 10- and 40-GbE InfiniBand PCIe cards and switches for pennies on the dollar.) It is worth getting a professional systems administrator to help select parts and configure this option, if chosen.
 
-
+I suggest tracking performance and utilization before taking this expensive step; 10GbE might be a sufficient compromise.
