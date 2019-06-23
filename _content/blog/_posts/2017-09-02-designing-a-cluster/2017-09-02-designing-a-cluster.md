@@ -6,10 +6,6 @@ tags: [gpu-cluster]
 
 When designing a GPU cluster, it is important to keep in mind an upgrade pathway. This post suggests a possible sequence of designs that will allow you to move from a four-GPU cluster to a 100-GPU cluster while ensuring that the upgrade path is clear.
 
-When designing the cluster, here are some general assumptions:
- - Each compute machine has 4 GPUs, and its own local resources
- - A standard 110V wall circuit can support 8 GPUs; a 240V circuit supports 12 GPUs
-
 The basic principle of this design is to keep track of the _next limiting factor_, out of: power, cooling, space, and storage bandwidth, and ensure that we adjust our design as we hit various limits.
 
 
