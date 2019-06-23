@@ -1,20 +1,27 @@
 ---
 layout: default
 ---
-<div class="col-md-9 scrollspy-search main-text">
-{{ content }}
+{% if page.leader %}
+<div class="row page-leader">
+	{% include blogimage src=page.leader %}
 </div>
-<div class="col-md-3">
-	<div class="sidebar-nav">
-		<h2>Navigation</h2>
-		<div class="scrollspy-display">
-			<h3>This Page</h3>
-		</div>
-		<div>
-			<h3>Other Pages</h3>
-			<ol class="sidebar-links">
-				{% include nav.html %}
-			</ol>
+{% endif %}
+<div class="row">
+	<div class="col-md-9 scrollspy-search main-text">
+		{{ content }}
+	</div>
+	<div class="col-md-3">
+		<div class="sidebar-nav">
+			<h2>Navigation</h2>
+			<div class="scrollspy-display">
+				<h3>This Page</h3>
+			</div>
+			<div>
+				<h3>Other Pages</h3>
+				<ol class="sidebar-links">
+					{% include nav.html %}
+				</ol>
+			</div>
 		</div>
 	</div>
 </div>
